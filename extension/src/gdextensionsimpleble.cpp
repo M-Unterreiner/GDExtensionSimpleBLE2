@@ -13,7 +13,7 @@ using namespace godot;
 
 GDExtensionSimpleBLE::GDExtensionSimpleBLE() {
 
-  std::unique_ptr<BLEPeripheralManager> p {new BLEPeripheralManager()};
+  std::unique_ptr<BLEPeripheralManager> p{new BLEPeripheralManager()};
   peripheralManager_ = std::move(p);
 }
 
@@ -21,13 +21,13 @@ GDExtensionSimpleBLE::~GDExtensionSimpleBLE() {}
 
 // Should return Array
 Array GDExtensionSimpleBLE::getAdapterList() {
-  Array* myArray = peripheralManager_->getAdapterList();
+  Array *myArray = peripheralManager_->getAdapterList();
   return *myArray;
 }
 
 // Copied from BLEUtils GDSimpleBLE
 PackedByteArray
-GDExtensionSimpleBLE::stringToByteArray(const SimpleBLE::ByteArray& p_bytes) {
+GDExtensionSimpleBLE::stringToByteArray(const SimpleBLE::ByteArray &p_bytes) {
   PackedByteArray l_byte_array;
 
   char const *l_bytes = p_bytes.c_str();
@@ -38,11 +38,16 @@ GDExtensionSimpleBLE::stringToByteArray(const SimpleBLE::ByteArray& p_bytes) {
   return l_byte_array;
 }
 
-
-bool GDExtensionSimpleBLE::connectPeripherals() {
+bool GDExtensionSimpleBLE::connectPeripherals(Array peripherals) {
   GDExtensionlogger::log("Entered connectPeripherals");
 
-  peripheralManager_->addPeripheral("1_Device");
+  if (!peripherals.is_empty()) {
+    for (unsigned int i = 0; i < peripherals.size(); i += 1) {
+      String peripheral = peripherals[i];
+      peripheralManager_->addPeripheral(peripheral.utf8().get_data());
+    }
+  }
+
   peripheralManager_->connectAddedPeripherals();
 
   return true;
@@ -50,7 +55,7 @@ bool GDExtensionSimpleBLE::connectPeripherals() {
 
 // TODO: Is always returning true!
 bool GDExtensionSimpleBLE::connectService() {
-  if(peripheralManager_->connectService()){
+  if (peripheralManager_->connectService()) {
     GDExtensionlogger::log("Connected successfully to service");
     return true;
   } else {
@@ -71,7 +76,7 @@ void GDExtensionSimpleBLE::_bind_methods() {
   // ClassDB::bind_method(D_METHOD("reset"), &GDExtensionSimpleBLE::reset);
   ClassDB::bind_method(D_METHOD("getAdapterList"),
                        &GDExtensionSimpleBLE::getAdapterList);
-  ClassDB::bind_method(D_METHOD("connectPeripherals"),
+  ClassDB::bind_method(D_METHOD("connectPeripherals", "peripherals"),
                        &GDExtensionSimpleBLE::connectPeripherals);
   ClassDB::bind_method(D_METHOD("connectService"),
                        &GDExtensionSimpleBLE::connectService);

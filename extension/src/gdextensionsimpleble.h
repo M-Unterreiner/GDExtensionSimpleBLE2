@@ -39,7 +39,7 @@ public:
   GDExtensionSimpleBLE();
   ~GDExtensionSimpleBLE();
   Array getAdapterList();
-  bool connectPeripherals();
+  bool connectPeripherals(Array peripherals);
   bool connectService();
   Variant readService();
 };
