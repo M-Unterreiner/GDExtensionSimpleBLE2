@@ -1,4 +1,7 @@
 [submodule "godot-cpp"]
-	path = godot-cpp
+	path = external/godot-cpp
 	url = https://github.com/godotengine/godot-cpp.git
 	branch = master
+[submodule "external/SimpleBLE"]
+	path = external/SimpleBLE
+	url = https://github.com/OpenBluetoothToolbox/SimpleBLE.git

@@ -1,7 +1,7 @@
-// © Copyright 2014-2022, Juan Linietsky, Ariel Manzur and the Godot community
-// (CC-BY 3.0)
-#ifndef GDEXTENSIONSIMPLEble_CLASS_H
-#define GDEXTENSIONSIMPLEBLE_CLASS_H
+/// / © Copyright 2014-2022, Juan Linietsky, Ariel Manzur and the Godot
+/// community / (CC-BY 3.0)
+#ifndef GDEXTENSIONSIMPLEBLE_H
+#define GDEXTENSIONSIMPLEBLE__H
 
 // We don't need windows.h in this plugin but many others do and it throws up on
 // itself all the time So best to include it and make sure CI warns us when we
@@ -11,13 +11,26 @@
 #endif
 
 #include <godot_cpp/classes/ref.hpp>
+#include <simpleble/SimpleBLE.h>
+#include <simpleble/Utils.h>
+
+#include "bleadapter.h"
+#include "bleperipheralmanager.h"
+
+#include <string>
+#include <vector>
 
 using namespace godot;
 
 class GDExtensionSimpleBLE : public RefCounted {
   GDCLASS(GDExtensionSimpleBLE, RefCounted);
 
-  int count;
+private:
+  std::unique_ptr<BLEPeripheralManager> peripheralManager_;
+
+  Variant readPeripheral();
+  PackedByteArray stringToByteArray(const SimpleBLE::ByteArray &p_bytes);
+  void disconnectThisPeripheral(SimpleBLE::Peripheral &peripheral);
 
 protected:
   static void _bind_methods();
@@ -25,10 +38,10 @@ protected:
 public:
   GDExtensionSimpleBLE();
   ~GDExtensionSimpleBLE();
-
-  void add(int p_value);
-  void reset();
-  int get_total() const;
+  Array getAdapterList();
+  bool connectPeripherals();
+  bool connectService();
+  Variant readService();
 };
 
 #endif // GDEXTENSIONSIMPLEBLE_CLASS_H

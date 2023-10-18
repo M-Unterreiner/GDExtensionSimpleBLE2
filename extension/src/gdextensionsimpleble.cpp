@@ -1,24 +1,82 @@
 // © Copyright 2014-2022, Juan Linietsky, Ariel Manzur and the Godot community
 // (CC-BY 3.0)
 #include "gdextensionsimpleble.h"
+#include "bleperipheralmanager.h"
+#include "gdextensionlogger.h"
 
+#include <algorithm>
+#include <cstdio>
 #include <godot_cpp/core/class_db.hpp>
+#include <memory>
 
 using namespace godot;
 
-GDExtensionSimpleBLE::GDExtensionSimpleBLE() { count = 0; }
+GDExtensionSimpleBLE::GDExtensionSimpleBLE() {
+
+  std::unique_ptr<BLEPeripheralManager> p {new BLEPeripheralManager()};
+  peripheralManager_ = std::move(p);
+}
 
 GDExtensionSimpleBLE::~GDExtensionSimpleBLE() {}
 
-void GDExtensionSimpleBLE::add(int p_value) { count += p_value; }
+// Should return Array
+Array GDExtensionSimpleBLE::getAdapterList() {
+  Array* myArray = peripheralManager_->getAdapterList();
+  return *myArray;
+}
 
-void GDExtensionSimpleBLE::reset() { count = 0; }
+// Copied from BLEUtils GDSimpleBLE
+PackedByteArray
+GDExtensionSimpleBLE::stringToByteArray(const SimpleBLE::ByteArray& p_bytes) {
+  PackedByteArray l_byte_array;
 
-int GDExtensionSimpleBLE::get_total() const { return count; }
+  char const *l_bytes = p_bytes.c_str();
+  for (int l_index = 0; l_index < p_bytes.size(); l_index++) {
+    l_byte_array.append(l_bytes[l_index]);
+  }
+
+  return l_byte_array;
+}
+
+
+bool GDExtensionSimpleBLE::connectPeripherals() {
+  GDExtensionlogger::log("Entered connectPeripherals");
+
+  peripheralManager_->addPeripheral("1_Device");
+  peripheralManager_->connectAddedPeripherals();
+
+  return true;
+}
+
+// TODO: Is always returning true!
+bool GDExtensionSimpleBLE::connectService() {
+  if(peripheralManager_->connectService()){
+    GDExtensionlogger::log("Connected successfully to service");
+    return true;
+  } else {
+    GDExtensionlogger::log("Connecting to service failed");
+    return false;
+  }
+}
+
+Variant GDExtensionSimpleBLE::readPeripheral() {
+  SimpleBLE::ByteArray rx_data = peripheralManager_->readPeripheral();
+  return stringToByteArray(rx_data);
+};
+
+void GDExtensionSimpleBLE::disconnectThisPeripheral(
+    SimpleBLE::Peripheral &peripheral){};
 
 void GDExtensionSimpleBLE::_bind_methods() {
-  ClassDB::bind_method(D_METHOD("add", "value"), &GDExtensionSimpleBLE::add,
-                       DEFVAL(1));
-  ClassDB::bind_method(D_METHOD("reset"), &GDExtensionSimpleBLE::reset);
-  ClassDB::bind_method(D_METHOD("get_total"), &GDExtensionSimpleBLE::get_total);
+  // ClassDB::bind_method(D_METHOD("reset"), &GDExtensionSimpleBLE::reset);
+  ClassDB::bind_method(D_METHOD("getAdapterList"),
+                       &GDExtensionSimpleBLE::getAdapterList);
+  ClassDB::bind_method(D_METHOD("connectPeripherals"),
+                       &GDExtensionSimpleBLE::connectPeripherals);
+  ClassDB::bind_method(D_METHOD("connectService"),
+                       &GDExtensionSimpleBLE::connectService);
+  ClassDB::bind_method(D_METHOD("readPeripheral"),
+                       &GDExtensionSimpleBLE::readPeripheral);
+  ADD_SIGNAL(
+      MethodInfo("print_message", PropertyInfo(Variant::STRING, "message")));
 }
