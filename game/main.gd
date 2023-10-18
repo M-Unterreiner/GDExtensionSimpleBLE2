@@ -4,7 +4,7 @@ var ble : GDExtensionSimpleBLE
 var data
 
 func _ready() -> void:
-	ble = GDExtensionSimpleBLE.new()
+#	ble = GDExtensionSimpleBLE.new()
 #	print(ble.getAdapterList())
 #
 #
@@ -15,20 +15,20 @@ func _ready() -> void:
 #	for adapter in adapterList:
 #		print(adapter)
 #
-	ble.connectPeripherals()
+#	ble.connectPeripherals()
 #
-	ble.connectService()
-	
+#	ble.connectService()
+	pass
 	
 	
 func _process(delta):
 	var i = 0
 
 
-	while(true):
-		var data : PackedByteArray= ble.readPeripheral()
-		var quat = string_to_quaternion(data.get_string_from_ascii())
-		print(quat)
+#	while(true):
+#		var data : PackedByteArray= ble.readPeripheral()
+#		var quat = string_to_quaternion(data.get_string_from_ascii())
+#		print(quat)
 
 
 func string_to_quaternion(data : String):
