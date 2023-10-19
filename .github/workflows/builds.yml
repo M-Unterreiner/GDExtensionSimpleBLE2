@@ -89,7 +89,7 @@ jobs:
         shell: sh
         run: |
           scons target='${{ matrix.target }}' platform='${{ matrix.platform }}' arch='${{ matrix.arch }}'
-        working-directory: godot-cpp
+        working-directory: external/godot-cpp
 
       - name: Compile Extension
         shell: sh
