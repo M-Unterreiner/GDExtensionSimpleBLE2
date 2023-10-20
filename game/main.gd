@@ -5,30 +5,17 @@ var data
 var peripherals : Array = ["2_Device"]  
 func _ready() -> void:
 	ble = GDExtensionSimpleBLE.new()
-#	print(ble.getAdapterList())
-#
-#
 	ble.print_message.connect(_print_message)
-#
-#	var adapterList : Array= ble.getAdapterList()
-#	print(adapterList.size())
-#	for adapter in adapterList:
-#		print(adapter)
-
 	ble.connectPeripherals(peripherals)
-#
 	ble.connectService()
-#	pass
 	
 	
 func _process(delta):
-	var i = 0
-
-
 	while(true):
 		var data : PackedByteArray= ble.readPeripheral()
 		var quat = string_to_quaternion(data.get_string_from_ascii())
-		print(quat)
+		if(quat != Quaternion.IDENTITY):
+			print(quat)
 
 
 func string_to_quaternion(data : String):

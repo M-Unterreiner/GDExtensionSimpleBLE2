@@ -138,9 +138,14 @@ SimpleBLE::ByteArray BLEPeripheralManager::readPeripheral() {
       rx_data = peripheral.read(uuidPeripheral1[1].first, uuidPeripheral1[1].second);
     } catch (const std::exception& e) {
       GDExtensionlogger::log("Couldn't read from peripheral");
+      connectThisPeripheral(peripheral);
       return rx_data; 
     }
+  } else {
+    // TODO: This should be done somewhere else. Only for testing purposes.
+    connectThisPeripheral(peripheral);
   }
+
   return rx_data;
 };
 
