@@ -127,8 +127,15 @@ BLEPeripheralManager::getServicesOfPeripheral(
   return uuids;
 }
 
+// TODO: Write an proper implementation
 SimpleBLE::ByteArray BLEPeripheralManager::readPeripheral() {
-  SimpleBLE::ByteArray rx_data = addedPeripherals_[0].read(uuidPeripheral1[1].first, uuidPeripheral1[1].second);
+  SimpleBLE::ByteArray rx_data = SimpleBLE::ByteArray();
+  
+  SimpleBLE::Peripheral peripheral = addedPeripherals_[0];
+
+  if(isThisPeripheralConnected(peripheral)){
+    rx_data = peripheral.read(uuidPeripheral1[1].first, uuidPeripheral1[1].second);
+  }
   return rx_data;
 };
 
