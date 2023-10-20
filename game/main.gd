@@ -2,7 +2,7 @@ extends Node
 
 var ble : GDExtensionSimpleBLE
 var data
-var peripherals : Array = ["1_Device"]  
+var peripherals : Array = ["2_Device"]  
 func _ready() -> void:
 	ble = GDExtensionSimpleBLE.new()
 #	print(ble.getAdapterList())
@@ -32,9 +32,11 @@ func _process(delta):
 
 
 func string_to_quaternion(data : String):
-	var sArray : PackedFloat64Array = data.split_floats(",",false)
-	var quat : Quaternion = Quaternion(sArray[0],sArray[1],sArray[2],sArray[3])
-	return quat
+	if (data.length() > 0):
+		var sArray : PackedFloat64Array = data.split_floats(",",false)
+		var quat : Quaternion = Quaternion(sArray[0],sArray[1],sArray[2],sArray[3])
+		return quat
+	return Quaternion.IDENTITY
 	
 func _print_message(message):
 	print(message)
