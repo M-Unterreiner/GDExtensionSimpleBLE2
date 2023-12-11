@@ -9,8 +9,8 @@
 using namespace godot;
 
 BLEPeripheralManager::BLEPeripheralManager() {
-  std::unique_ptr<BLEAdapter> newAdapter {new BLEAdapter()};
-  adapter_ = std::move(newAdapter); 
+  std::unique_ptr<BLEAdapter> newAdapter{new BLEAdapter()};
+  adapter_ = std::move(newAdapter);
 };
 
 BLEPeripheralManager::~BLEPeripheralManager(){};
@@ -21,13 +21,12 @@ void BLEPeripheralManager::scanPeripherals() {
   adapter_->scanPeripherals();
 };
 
-Array* BLEPeripheralManager::getAdapterList(){
+Array *BLEPeripheralManager::getAdapterList() {
   return adapter_->getAdapterList();
-
 }
 
-
-SimpleBLE::Peripheral BLEPeripheralManager::scanForThisPeripheral(std::string wantedPeripheral) {
+SimpleBLE::Peripheral
+BLEPeripheralManager::scanForThisPeripheral(std::string wantedPeripheral) {
   GDExtensionlogger::log("Entered scanForThisPeripheral");
 
   bool isNotPeripheralFound = true;
@@ -38,13 +37,15 @@ SimpleBLE::Peripheral BLEPeripheralManager::scanForThisPeripheral(std::string wa
     std::vector<SimpleBLE::Peripheral> peripherals = adapter_->getScanResults();
 
     if (!peripherals.empty()) {
-      GDExtensionlogger::log("scanforThisPeripheral: Following peripheral were found:");
+      GDExtensionlogger::log(
+          "scanforThisPeripheral: Following peripheral were found:");
       for (SimpleBLE::Peripheral peripheral : peripherals) {
         GDExtensionlogger::log(peripheral.identifier().c_str());
         std::string identifier = peripheral.identifier();
 
         if (identifier == wantedPeripheral) {
-          GDExtensionlogger::log("scanforThisPeripheral: wanted peripheral was found.");
+          GDExtensionlogger::log(
+              "scanforThisPeripheral: wanted peripheral was found.");
           return peripheral;
         }
       }
@@ -53,14 +54,16 @@ SimpleBLE::Peripheral BLEPeripheralManager::scanForThisPeripheral(std::string wa
   return SimpleBLE::Peripheral();
 };
 
-//TODO: Need to handle empty peripherals
-bool BLEPeripheralManager::addPeripheral(std::string wantedPeripheral){
-  GDExtensionlogger::log("Entered addPeripheral");  
+// TODO: Need to handle empty peripherals
+bool BLEPeripheralManager::addPeripheral(std::string wantedPeripheral) {
+  GDExtensionlogger::log("Entered addPeripheral");
 
-  std::vector<SimpleBLE::Peripheral> pairedPeripherals = adapter_->getPairedPeripherals();
+  std::vector<SimpleBLE::Peripheral> pairedPeripherals =
+      adapter_->getPairedPeripherals();
 
-  for (auto & peripheral : pairedPeripherals){
-    std::string message = "Compare " + peripheral.identifier() + " with " + wantedPeripheral;
+  for (auto &peripheral : pairedPeripherals) {
+    std::string message =
+        "Compare " + peripheral.identifier() + " with " + wantedPeripheral;
     GDExtensionlogger::log(message.c_str());
     if (peripheral.identifier().compare(wantedPeripheral) == 0) {
       GDExtensionlogger::log("They are equal.");
@@ -72,14 +75,14 @@ bool BLEPeripheralManager::addPeripheral(std::string wantedPeripheral){
   return true;
 };
 
-bool BLEPeripheralManager::connectAddedPeripherals(){
+bool BLEPeripheralManager::connectAddedPeripherals() {
   GDExtensionlogger::log("Connect added peripherals");
-  if (!addedPeripherals_.empty()){
-     for (auto & peripheral : addedPeripherals_) {
-        if (!isThisPeripheralConnected(peripheral)){
-          connectThisPeripheral(peripheral);
-        }
+  if (!addedPeripherals_.empty()) {
+    for (auto &peripheral : addedPeripherals_) {
+      if (!isThisPeripheralConnected(peripheral)) {
+        connectThisPeripheral(peripheral);
       }
+    }
     return true;
   } else {
     GDExtensionlogger::log("No peripherals were added");
@@ -88,7 +91,7 @@ bool BLEPeripheralManager::connectAddedPeripherals(){
 };
 
 bool BLEPeripheralManager::connectThisPeripheral(
-    SimpleBLE::Peripheral& peripheral) {
+    SimpleBLE::Peripheral &peripheral) {
   GDExtensionlogger::log("ConnectThisPeripheral");
   try {
     peripheral.connect();
@@ -99,16 +102,15 @@ bool BLEPeripheralManager::connectThisPeripheral(
   }
 };
 
-
 // TODO Implement correct!
 bool BLEPeripheralManager::connectService() {
-  GDExtensionlogger::log("Entered connectService - WHICH IS NOT CORRECTLY IMPLEMENTED");
+  GDExtensionlogger::log(
+      "Entered connectService - WHICH IS NOT CORRECTLY IMPLEMENTED");
 
   uuidPeripheral1 = getServicesOfPeripheral(addedPeripherals_[0]);
 
   return true;
 };
-
 
 std::vector<std::pair<SimpleBLE::BluetoothUUID, SimpleBLE::BluetoothUUID>>
 BLEPeripheralManager::getServicesOfPeripheral(
@@ -130,16 +132,20 @@ BLEPeripheralManager::getServicesOfPeripheral(
 // TODO: Write an proper implementation
 SimpleBLE::ByteArray BLEPeripheralManager::readPeripheral() {
   SimpleBLE::ByteArray rx_data = SimpleBLE::ByteArray();
-  
+
   SimpleBLE::Peripheral peripheral = addedPeripherals_[0];
 
-  if(isThisPeripheralConnected(peripheral)){
-    try {
-      rx_data = peripheral.read(uuidPeripheral1[1].first, uuidPeripheral1[1].second);
-    } catch (const std::exception& e) {
+  if (isThisPeripheralConnected(peripheral)) {
+    // try {
+    rx_data =
+        peripheral.read(uuidPeripheral1[1].first, uuidPeripheral1[1].second);
+
+    //} catch (const std::exception& e) {
+    if (rx_data == SimpleBLE::ByteArray()) {
+
       GDExtensionlogger::log("Couldn't read from peripheral");
       connectThisPeripheral(peripheral);
-      return rx_data; 
+      return rx_data;
     }
   } else {
     // TODO: This should be done somewhere else. Only for testing purposes.
@@ -149,8 +155,9 @@ SimpleBLE::ByteArray BLEPeripheralManager::readPeripheral() {
   return rx_data;
 };
 
-bool BLEPeripheralManager::isThisPeripheralConnected(SimpleBLE::Peripheral &peripheral) {
-  if(peripheral.is_connected()){
+bool BLEPeripheralManager::isThisPeripheralConnected(
+    SimpleBLE::Peripheral &peripheral) {
+  if (peripheral.is_connected()) {
     return true;
   }
   return false;
