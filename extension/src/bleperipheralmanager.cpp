@@ -104,7 +104,8 @@ bool BLEPeripheralManager::connectThisPeripheral(
   }
 };
 
-// TODO Implement correct!
+// TODO Implement correct! Because it connects to the first service. Better
+// approach is to provide a choice for services
 bool BLEPeripheralManager::connectService() {
   GDExtensionlogger::log(
       "Entered connectService - WHICH IS NOT CORRECTLY IMPLEMENTED");
