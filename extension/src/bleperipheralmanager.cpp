@@ -93,12 +93,10 @@ bool BLEPeripheralManager::connectAddedPeripherals() {
 bool BLEPeripheralManager::connectThisPeripheral(
     SimpleBLE::Peripheral &peripheral) {
   GDExtensionlogger::log("ConnectThisPeripheral");
-  // try {
   peripheral.connect();
   if (peripheral.is_connected()) {
     return true;
   } else {
-    //} catch (std::exception &l_exception) {
     GDExtensionlogger::log("Couldn't connect to peripheral");
     return false;
   }
@@ -139,11 +137,9 @@ SimpleBLE::ByteArray BLEPeripheralManager::readPeripheral() {
   SimpleBLE::Peripheral peripheral = addedPeripherals_[0];
 
   if (isThisPeripheralConnected(peripheral)) {
-    // try {
     rx_data =
         peripheral.read(uuidPeripheral1[1].first, uuidPeripheral1[1].second);
 
-    //} catch (const std::exception& e) {
     if (rx_data == SimpleBLE::ByteArray()) {
 
       GDExtensionlogger::log("Couldn't read from peripheral");
