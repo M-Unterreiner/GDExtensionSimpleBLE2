@@ -93,10 +93,12 @@ bool BLEPeripheralManager::connectAddedPeripherals() {
 bool BLEPeripheralManager::connectThisPeripheral(
     SimpleBLE::Peripheral &peripheral) {
   GDExtensionlogger::log("ConnectThisPeripheral");
-  try {
-    peripheral.connect();
+  // try {
+  peripheral.connect();
+  if (peripheral.is_connected()) {
     return true;
-  } catch (std::exception &l_exception) {
+  } else {
+    //} catch (std::exception &l_exception) {
     GDExtensionlogger::log("Couldn't connect to peripheral");
     return false;
   }
