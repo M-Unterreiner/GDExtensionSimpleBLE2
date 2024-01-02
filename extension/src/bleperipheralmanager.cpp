@@ -143,9 +143,9 @@ BLEPeripheralManager::getServicesOfPeripheral(
 
 // TODO: Write an proper implementation
 // Reads only the first peripheral of the list.
-SimpleBLE::ByteArray BLEPeripheralManager::readThisPeripheral() {
+SimpleBLE::ByteArray BLEPeripheralManager::readThisPeripheral(SimpleBLE::Peripheral &peripheral) {
   SimpleBLE::ByteArray rx_data = SimpleBLE::ByteArray();
-  SimpleBLE::Peripheral peripheral = addedPeripherals_[0];
+  //SimpleBLE::Peripheral peripheral = addedPeripherals_[0];
   // Needs no check if peripheral is connected, because SimpleBLE::Peripheral does it already.
   rx_data = peripheral.read(uuidPeripheral1[1].first, uuidPeripheral1[1].second);
   return rx_data;
