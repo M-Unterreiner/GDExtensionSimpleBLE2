@@ -23,7 +23,6 @@ private:
       uuidPeripheral1;
   SimpleBLE::Peripheral scanForThisPeripheral(std::string wantedPeripheral);
   bool isThisPeripheralConnected(SimpleBLE::Peripheral& peripheral);
-  bool isReadDataEmpty(SimpleBLE::Peripheral rx_data);
 
 public:
   void scanPeripherals();
@@ -35,6 +34,7 @@ public:
   bool connectAddedPeripherals();
   bool connectService();
   SimpleBLE::ByteArray readPeripheral();
+  bool isReadDataEmpty(SimpleBLE::ByteArray rx_data);
 
   std::vector<std::pair<SimpleBLE::BluetoothUUID, SimpleBLE::BluetoothUUID>>
   getServicesOfPeripheral(SimpleBLE::Peripheral& peripheral);

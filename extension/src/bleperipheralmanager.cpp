@@ -159,14 +159,13 @@ SimpleBLE::ByteArray BLEPeripheralManager::readPeripheral() {
 }
 
 // Check if readed data are empty
-bool isReadDataEmpty(SimpleBLE::Peripheral rx_data){
+bool isReadDataEmpty(SimpleBLE::ByteArray rx_data){
   SimpleBLE::ByteArray emptyData = SimpleBLE::ByteArray();
 
   if (rx_data == emptyData){
     return true;
-      } else {
-    return false;
   }
+  return false;
 }
 
 bool BLEPeripheralManager::isThisPeripheralConnected(
