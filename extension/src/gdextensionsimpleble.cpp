@@ -63,7 +63,7 @@ bool GDExtensionSimpleBLE::connectService() {
   }
 }
 
-Variant GDExtensionSimpleBLE::readPeripheral() {
+Variant GDExtensionSimpleBLE::readPeripheral(String device_name) {
   SimpleBLE::ByteArray rx_data = peripheralManager_->readThisPeripheral(this);
 
   if(peripheralManager_->isReadDataEmpty(rx_data)){
@@ -85,7 +85,7 @@ void GDExtensionSimpleBLE::_bind_methods() {
                        &GDExtensionSimpleBLE::connectPeripherals);
   ClassDB::bind_method(D_METHOD("connectService"),
                        &GDExtensionSimpleBLE::connectService);
-  ClassDB::bind_method(D_METHOD("readPeripheral"),
+  ClassDB::bind_method(D_METHOD("readPeripheral", "device_name"),
                        &GDExtensionSimpleBLE::readPeripheral);
   ADD_SIGNAL(
       MethodInfo("print_message", PropertyInfo(Variant::STRING, "message")));
