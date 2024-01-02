@@ -152,7 +152,6 @@ SimpleBLE::ByteArray BLEPeripheralManager::readPeripheral() {
         peripheral.read(uuidPeripheral1[1].first, uuidPeripheral1[1].second);
     return rx_data;
   } else {
-    // TODO: This should be done somewhere else. Only for testing purposes.
     GDExtensionlogger::log("Couldn't read from peripheral because it is not connected");
     return rx_data;
   }
