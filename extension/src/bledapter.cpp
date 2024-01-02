@@ -1,4 +1,4 @@
-include "bleadapter.h
+#include "bleadapter.h"
 #include <algorithm>
 
 #include "gdextensionlogger.h"
