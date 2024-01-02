@@ -102,10 +102,11 @@ bool BLEPeripheralManager::connectAddedPeripherals() {
 bool BLEPeripheralManager::connectThisPeripheral(
     SimpleBLE::Peripheral &peripheral) {
   GDExtensionlogger::log("ConnectThisPeripheral");
-  try {
-    peripheral.connect();
+  peripheral.connect();
+  if (peripheral.is_connected()){
+    GDExtensionlogger::log("Connected to peripheral");
     return true;
-  } catch (std::exception &l_exception) {
+  } else {
     GDExtensionlogger::log("Couldn't connect to peripheral");
     return false;
   }
@@ -147,21 +148,17 @@ SimpleBLE::ByteArray BLEPeripheralManager::readPeripheral() {
   SimpleBLE::Peripheral peripheral = addedPeripherals_[0];
 
   if (isThisPeripheralConnected(peripheral)) {
-    try {
-      rx_data =
-          peripheral.read(uuidPeripheral1[1].first, uuidPeripheral1[1].second);
-    } catch (const std::exception &e) {
-      GDExtensionlogger::log("Couldn't read from peripheral");
-      connectThisPeripheral(peripheral);
-      return rx_data;
-    }
+    rx_data =
+        peripheral.read(uuidPeripheral1[1].first, uuidPeripheral1[1].second);
+    GDExtensionlogger::log("Couldn't read from peripheral");
+    connectThisPeripheral(peripheral);
+    return rx_data;
   } else {
     // TODO: This should be done somewhere else. Only for testing purposes.
     connectThisPeripheral(peripheral);
+    return rx_data;
   }
-
-  return rx_data;
-};
+}
 
 bool BLEPeripheralManager::isThisPeripheralConnected(
     SimpleBLE::Peripheral &peripheral) {
@@ -169,7 +166,8 @@ bool BLEPeripheralManager::isThisPeripheralConnected(
     return true;
   }
   return false;
-};
+}
+
 
 /*
 // Needs to be fixed
