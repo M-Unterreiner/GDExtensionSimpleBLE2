@@ -143,7 +143,11 @@ BLEPeripheralManager::getServicesOfPeripheral(
 
 // TODO: Write an proper implementation
 // Reads only the first peripheral of the list.
-SimpleBLE::ByteArray BLEPeripheralManager::readThisPeripheral(SimpleBLE::Peripheral &peripheral) {
+SimpleBLE::ByteArray BLEPeripheralManager::readThisPeripheral(std::string peripheralName) {
+
+  SimpleBLE::Peripheral peripheral = getPeripheralByName(peripheralName);
+
+
   SimpleBLE::ByteArray rx_data = SimpleBLE::ByteArray();
   //SimpleBLE::Peripheral peripheral = addedPeripherals_[0];
   // Needs no check if peripheral is connected, because SimpleBLE::Peripheral does it already.
@@ -152,13 +156,23 @@ SimpleBLE::ByteArray BLEPeripheralManager::readThisPeripheral(SimpleBLE::Periphe
 }
 
 // Check if readed data are empty
-bool isReadDataEmpty(SimpleBLE::ByteArray rx_data){
+bool BLEPeripheralManager::isReadDataEmpty(SimpleBLE::ByteArray rx_data){
   SimpleBLE::ByteArray emptyData = SimpleBLE::ByteArray();
 
   if (rx_data == emptyData){
     return true;
   }
   return false;
+}
+
+// Returns peripheral which was added to the peripherals
+SimpleBLE::Peripheral BLEPeripheralManager::getPeripheralByName(std::string peripheralName){
+  for (auto &peripheral : addedPeripherals_) {
+    if (peripheral.identifier().compare(peripheralName) == 0) {
+      return peripheral;
+    }
+  }
+  return SimpleBLE::Peripheral();
 }
 
 bool BLEPeripheralManager::isThisPeripheralConnected(

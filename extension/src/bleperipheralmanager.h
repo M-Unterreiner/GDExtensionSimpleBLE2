@@ -22,6 +22,7 @@ private:
   std::vector<std::pair<SimpleBLE::BluetoothUUID, SimpleBLE::BluetoothUUID>>
       uuidPeripheral1;
   SimpleBLE::Peripheral scanForThisPeripheral(std::string wantedPeripheral);
+  SimpleBLE::Peripheral getPeripheralByName(std::string peripheralName);
   bool isThisPeripheralConnected(SimpleBLE::Peripheral& peripheral);
 
 public:
@@ -33,7 +34,7 @@ public:
   Array* getAdapterList();
   bool connectAddedPeripherals();
   bool connectService();
-  SimpleBLE::ByteArray readThisPeripheral(SimpleBLE::Peripheral &peripheral);
+  SimpleBLE::ByteArray readThisPeripheral(std::string peripheralName);
   bool isReadDataEmpty(SimpleBLE::ByteArray rx_data);
 
   std::vector<std::pair<SimpleBLE::BluetoothUUID, SimpleBLE::BluetoothUUID>>
