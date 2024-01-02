@@ -66,6 +66,12 @@ bool GDExtensionSimpleBLE::connectService() {
 
 Variant GDExtensionSimpleBLE::readPeripheral() {
   SimpleBLE::ByteArray rx_data = peripheralManager_->readPeripheral();
+
+  if(peripheralManager_->isReadDataEmpty(rx_data)){
+    GDExtensionlogger::log("Read data is empty");
+    return stringToByteArray(rx_data);
+  }
+
   return stringToByteArray(rx_data);
 };
 
