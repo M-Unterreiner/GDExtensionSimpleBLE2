@@ -33,7 +33,7 @@ public:
   Array* getAdapterList();
   bool connectAddedPeripherals();
   bool connectService();
-  SimpleBLE::ByteArray readPeripheral();
+  SimpleBLE::ByteArray readThisPeripheral();
   bool isReadDataEmpty(SimpleBLE::ByteArray rx_data);
 
   std::vector<std::pair<SimpleBLE::BluetoothUUID, SimpleBLE::BluetoothUUID>>
