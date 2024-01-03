@@ -23,7 +23,7 @@ private:
       uuidPeripheral1;
   SimpleBLE::Peripheral scanForThisPeripheral(std::string wantedPeripheral);
   SimpleBLE::Peripheral getPeripheralByName(std::string peripheralName);
-  bool isThisPeripheralConnected(SimpleBLE::Peripheral& peripheral);
+  bool isThisPeripheralConnected(SimpleBLE::Peripheral* peripheral);
 
 public:
   void scanPeripherals();

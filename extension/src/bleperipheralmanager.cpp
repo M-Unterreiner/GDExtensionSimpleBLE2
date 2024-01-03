@@ -87,7 +87,7 @@ bool BLEPeripheralManager::connectAddedPeripherals() {
   GDExtensionlogger::log("Connect added peripherals");
   if (!addedPeripherals_.empty()) {
     for (auto &peripheral : addedPeripherals_) {
-      if (!isThisPeripheralConnected(peripheral)) {
+      if (!isThisPeripheralConnected(&peripheral)) {
         connectThisPeripheral(peripheral);
       }
     }
@@ -175,9 +175,8 @@ SimpleBLE::Peripheral BLEPeripheralManager::getPeripheralByName(std::string peri
   return SimpleBLE::Peripheral();
 }
 
-bool BLEPeripheralManager::isThisPeripheralConnected(
-    SimpleBLE::Peripheral &peripheral) {
-  if (peripheral.is_connected()) {
+bool BLEPeripheralManager::isThisPeripheralConnected(SimpleBLE::Peripheral* peripheral) {
+  if (peripheral->is_connected()) {
     return true;
   }
   return false;
