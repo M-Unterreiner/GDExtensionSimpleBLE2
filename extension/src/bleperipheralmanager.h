@@ -22,7 +22,7 @@ private:
   std::vector<std::pair<SimpleBLE::BluetoothUUID, SimpleBLE::BluetoothUUID>>
       uuidPeripheral1;
   SimpleBLE::Peripheral scanForThisPeripheral(std::string wantedPeripheral);
-  SimpleBLE::Peripheral getPeripheralByName(std::string peripheralName);
+  SimpleBLE::Peripheral* getPeripheralByName(std::string peripheralName);
   bool isThisPeripheralConnected(SimpleBLE::Peripheral* peripheral);
 
 public:

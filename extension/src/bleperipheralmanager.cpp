@@ -142,16 +142,20 @@ BLEPeripheralManager::getServicesOfPeripheral(
 }
 
 // TODO: Write an proper implementation
-// Reads only the first peripheral of the list.
+// Reads only the first service of the list.
 SimpleBLE::ByteArray BLEPeripheralManager::readThisPeripheral(std::string peripheralName) {
 
-  SimpleBLE::Peripheral peripheral = getPeripheralByName(peripheralName);
-
-
+  SimpleBLE::Peripheral* peripheral = getPeripheralByName(peripheralName);
   SimpleBLE::ByteArray rx_data = SimpleBLE::ByteArray();
+
+  if(peripheral == nullptr){
+    GDExtensionlogger::log("BLEPeripheralManager: No data returned, because peripheral was not present");
+    return rx_data;
+  }
+
   //SimpleBLE::Peripheral peripheral = addedPeripherals_[0];
   // Needs no check if peripheral is connected, because SimpleBLE::Peripheral does it already.
-  rx_data = peripheral.read(uuidPeripheral1[1].first, uuidPeripheral1[1].second);
+  rx_data = peripheral->read(uuidPeripheral1[1].first, uuidPeripheral1[1].second);
   return rx_data;
 }
 
@@ -165,14 +169,16 @@ bool BLEPeripheralManager::isReadDataEmpty(SimpleBLE::ByteArray rx_data){
   return false;
 }
 
-// Returns peripheral which was added to the peripherals
-SimpleBLE::Peripheral BLEPeripheralManager::getPeripheralByName(std::string peripheralName){
+// Returns peripheral which was added to the peripherals.
+// Beware if no peripheral is found it returns a nullptr
+SimpleBLE::Peripheral* BLEPeripheralManager::getPeripheralByName(std::string peripheralName){
   for (auto &peripheral : addedPeripherals_) {
     if (peripheral.identifier().compare(peripheralName) == 0) {
-      return peripheral;
+      return &peripheral;
     }
   }
-  return SimpleBLE::Peripheral();
+  GDExtensionlogger::log("BLEPeripheralManager: No peripheral returned, because peripheral was not present");
+  return nullptr;
 }
 
 bool BLEPeripheralManager::isThisPeripheralConnected(SimpleBLE::Peripheral* peripheral) {
