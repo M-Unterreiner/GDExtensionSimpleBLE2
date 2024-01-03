@@ -34,8 +34,12 @@ PackedByteArray GDExtensionSimpleBLE::stringToByteArray(const SimpleBLE::ByteArr
     for (int l_index = 0; l_index < p_bytes.size(); l_index++) {
       l_byte_array.append(l_bytes[l_index]);
     }
+    return l_byte_array;
   }
-  GDExtensionlogger::log("GDExtensionSimpleBLE: ByteArray is empty, return empty PackedByteArray");
+
+  if(p_bytes.size() == 0) {
+    GDExtensionlogger::log("GDExtensionSimpleBLE: ByteArray is empty, return empty PackedByteArray");
+  }
   return l_byte_array;
 }
 
