@@ -72,11 +72,13 @@ bool BLEPeripheralManager::addPeripheral(std::string wantedPeripheral) {
     GDExtensionlogger::log(message.c_str());
     if (peripheral.identifier().compare(wantedPeripheral) == 0) {
       GDExtensionlogger::log("They are equal.");
-      addedPeripherals_.push_back(peripheral);
+  //    TODO: Commented this out to get compiling working
+  //    addedPeripherals_.push_back(peripheral);
       return true;
     }
   }
-  addedPeripherals_.push_back(scanForThisPeripheral(wantedPeripheral));
+  //    TODO: Commented this out to get compiling working
+  // addedPeripherals_.push_back(scanForThisPeripheral(wantedPeripheral));
   return true;
 };
 
