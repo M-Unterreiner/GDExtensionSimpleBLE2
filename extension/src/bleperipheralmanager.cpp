@@ -176,7 +176,7 @@ bool BLEPeripheralManager::isReadDataEmpty(SimpleBLE::ByteArray rx_data){
 
 // Returns peripheral which was added to the peripherals.
 // Beware if no peripheral is found it returns a nullptr
-SimpleBLE::Peripheral* BLEPeripheralManager::getPeripheralByName(std::string peripheralName){
+BLEPeripheral* BLEPeripheralManager::getPeripheralByName(std::string peripheralName){
   for (auto &peripheral : addedPeripherals_) {
     if (peripheral.identifier().compare(peripheralName) == 0) {
       return &peripheral;

@@ -1,9 +1,9 @@
 #ifndef BLEPERIPHERALMANAGER_H
 #define BLEPERIPHERALMANAGER_H
+#pragma once
 
 #include "bleperipheral.h"
 #include <memory>
-#pragma once
 
 #include "bleadapter.h"
 #include <godot_cpp/classes/ref.hpp>
@@ -23,25 +23,25 @@ private:
   std::vector<std::pair<SimpleBLE::BluetoothUUID, SimpleBLE::BluetoothUUID>>
       uuidPeripheral1;
   SimpleBLE::Peripheral scanForThisPeripheral(std::string wantedPeripheral);
-  SimpleBLE::Peripheral* getPeripheralByName(std::string peripheralName);
+  BLEPeripheral* getPeripheralByName(std::string peripheralName);
   bool isThisPeripheralConnected(SimpleBLE::Peripheral* peripheral);
 
 public:
   void scanPeripherals();
   bool addPeripheral(std::string wantedPeripheral);
-  std::vector<SimpleBLE::Peripheral> getListOfPeripherals(SimpleBLE::Adapter *adapter);
-  bool connectThisPeripheral(BLEPeripheral* peripheral);
-  bool isThisDeviceConnected(SimpleBLE::Peripheral& peripheral);
-  Array* getAdapterList();
-  bool connectAddedPeripherals();
-  bool connectService();
-  SimpleBLE::ByteArray readThisPeripheral(std::string peripheralName);
-  bool isReadDataEmpty(SimpleBLE::ByteArray rx_data);
+    std::vector<SimpleBLE::Peripheral> getListOfPeripherals(SimpleBLE::Adapter *adapter);
+    bool connectThisPeripheral(BLEPeripheral* peripheral);
+    bool isThisDeviceConnected(SimpleBLE::Peripheral& peripheral);
+    Array* getAdapterList();
+    bool connectAddedPeripherals();
+    bool connectService();
+    SimpleBLE::ByteArray readThisPeripheral(std::string peripheralName);
+    bool isReadDataEmpty(SimpleBLE::ByteArray rx_data);
 
-  std::vector<std::pair<SimpleBLE::BluetoothUUID, SimpleBLE::BluetoothUUID>>
-  getServicesOfPeripheral(SimpleBLE::Peripheral& peripheral);
+    std::vector<std::pair<SimpleBLE::BluetoothUUID, SimpleBLE::BluetoothUUID>>
+    getServicesOfPeripheral(SimpleBLE::Peripheral& peripheral);
 
-  BLEPeripheralManager();
-  ~BLEPeripheralManager();
-};
-#endif // BLEPERIPHERALMANAGER_H
+    BLEPeripheralManager();
+    ~BLEPeripheralManager();
+  };
+  #endif // BLEPERIPHERALMANAGER_H
