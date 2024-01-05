@@ -24,7 +24,7 @@ std::vector<SimpleBLE::Service> BLEPeripheral::getServices() {
 }
 
 // Reads the peripheral
-SimpleBLE::ByteArray BLEPeripheral::readPeripheral() {
+SimpleBLE::ByteArray BLEPeripheral::read() {
     return SimpleBLE::ByteArray();
 }
 
