@@ -20,8 +20,7 @@ class BLEPeripheralManager {
 private:
   std::unique_ptr<BLEAdapter> adapter_;
   std::vector<BLEPeripheral> addedPeripherals_;
-  std::vector<std::pair<SimpleBLE::BluetoothUUID, SimpleBLE::BluetoothUUID>>
-      uuidPeripheral1;
+  //std::vector<std::pair<SimpleBLE::BluetoothUUID, SimpleBLE::BluetoothUUID>> uuidPeripheral1;
   SimpleBLE::Peripheral scanForThisPeripheral(std::string wantedPeripheral);
   BLEPeripheral* getPeripheralByName(std::string peripheralName);
   bool isThisPeripheralConnected(BLEPeripheral* peripheral);

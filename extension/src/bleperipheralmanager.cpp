@@ -114,14 +114,13 @@ bool BLEPeripheralManager::connectThisPeripheral(BLEPeripheral* peripheral) {
 };
 
 // TODO Implement correct!
-bool BLEPeripheralManager::connectService() {
-  GDExtensionlogger::log(
-      "Entered connectService - WHICH IS NOT CORRECTLY IMPLEMENTED");
-
-  uuidPeripheral1 = getServicesOfPeripheral(addedPeripherals_[0]);
-
-  return true;
-};
+//bool BLEPeripheralManager::connectService() {
+//  GDExtensionlogger::log("Entered connectService - WHICH IS NOT CORRECTLY IMPLEMENTED");
+//
+//  uuidPeripheral1 = getServicesOfPeripheral(addedPeripherals_[0]);
+//
+//  return true;
+//};
 
 // Returns a vector with all services defined by service and characteristic uuid
 // of the peripheral.
