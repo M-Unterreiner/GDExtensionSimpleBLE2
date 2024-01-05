@@ -103,8 +103,8 @@ bool BLEPeripheralManager::connectAddedPeripherals() {
 // Try to connect specified peripheral
 bool BLEPeripheralManager::connectThisPeripheral(BLEPeripheral* peripheral) {
   GDExtensionlogger::log("ConnectThisPeripheral");
-  peripheral.connect();
-  if (peripheral.is_connected()){
+  peripheral->connect();
+  if (peripheral->is_connected()){
     GDExtensionlogger::log("Connected to peripheral");
     return true;
   } else {
