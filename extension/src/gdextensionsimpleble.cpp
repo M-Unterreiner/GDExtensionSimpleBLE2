@@ -26,15 +26,20 @@ Array GDExtensionSimpleBLE::getAdapterList() {
 }
 
 // Copied from BLEUtils GDSimpleBLE
-PackedByteArray
-GDExtensionSimpleBLE::stringToByteArray(const SimpleBLE::ByteArray &p_bytes) {
+PackedByteArray GDExtensionSimpleBLE::stringToByteArray(const SimpleBLE::ByteArray &p_bytes) {
   PackedByteArray l_byte_array;
 
-  char const *l_bytes = p_bytes.c_str();
-  for (int l_index = 0; l_index < p_bytes.size(); l_index++) {
-    l_byte_array.append(l_bytes[l_index]);
+  if(p_bytes.size() != 0) {
+    char const *l_bytes = p_bytes.c_str();
+    for (int l_index = 0; l_index < p_bytes.size(); l_index++) {
+      l_byte_array.append(l_bytes[l_index]);
+    }
+    return l_byte_array;
   }
 
+  if(p_bytes.size() == 0) {
+    GDExtensionlogger::log("GDExtensionSimpleBLE: ByteArray is empty, return empty PackedByteArray");
+  }
   return l_byte_array;
 }
 
@@ -64,8 +69,8 @@ bool GDExtensionSimpleBLE::connectService() {
   }
 }
 
-Variant GDExtensionSimpleBLE::readPeripheral() {
-  SimpleBLE::ByteArray rx_data = peripheralManager_->readPeripheral();
+Variant GDExtensionSimpleBLE::readPeripheral(String device_name) {
+  SimpleBLE::ByteArray rx_data = peripheralManager_->readThisPeripheral(device_name.utf8().get_data());
 
   if(peripheralManager_->isReadDataEmpty(rx_data)){
     GDExtensionlogger::log("Read data is empty");
@@ -86,7 +91,7 @@ void GDExtensionSimpleBLE::_bind_methods() {
                        &GDExtensionSimpleBLE::connectPeripherals);
   ClassDB::bind_method(D_METHOD("connectService"),
                        &GDExtensionSimpleBLE::connectService);
-  ClassDB::bind_method(D_METHOD("readPeripheral"),
+  ClassDB::bind_method(D_METHOD("readPeripheral", "device_name"),
                        &GDExtensionSimpleBLE::readPeripheral);
   ADD_SIGNAL(
       MethodInfo("print_message", PropertyInfo(Variant::STRING, "message")));
