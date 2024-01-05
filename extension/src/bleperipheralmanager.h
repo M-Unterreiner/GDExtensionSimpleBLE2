@@ -30,7 +30,7 @@ public:
   void scanPeripherals();
   bool addPeripheral(std::string wantedPeripheral);
   std::vector<SimpleBLE::Peripheral> getListOfPeripherals(SimpleBLE::Adapter *adapter);
-  bool connectThisPeripheral(SimpleBLE::Peripheral& peripheral);
+  bool connectThisPeripheral(BLEPeripheral::BLEPeripheral* peripheral);
   bool isThisDeviceConnected(SimpleBLE::Peripheral& peripheral);
   Array* getAdapterList();
   bool connectAddedPeripherals();

@@ -4,6 +4,7 @@
 #include "bleadapter.h"
 #include <memory>
 
+#include "bleperipheral.h"
 #include "gdextensionlogger.h"
 
 using namespace godot;
@@ -186,7 +187,7 @@ SimpleBLE::Peripheral* BLEPeripheralManager::getPeripheralByName(std::string per
   return nullptr;
 }
 
-bool BLEPeripheralManager::isThisPeripheralConnected(SimpleBLE::Peripheral* peripheral) {
+bool BLEPeripheralManager::isThisPeripheralConnected(BLEPeripheral* peripheral) {
   if (peripheral->is_connected()) {
     return true;
   }
