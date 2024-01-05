@@ -8,6 +8,11 @@ void BLEPeripheral::connectService() {
     // Implementation goes here
 }
 
+void BLEPeripheral::connect() {
+    // Implementation goes here
+}
+
+
 // Returns if peripheral is connected.
 bool BLEPeripheral::is_connected() {
     return true;

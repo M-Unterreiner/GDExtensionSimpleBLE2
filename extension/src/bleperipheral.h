@@ -14,6 +14,7 @@ class BLEPeripheral{
     std::unique_ptr<SimpleBLE::Peripheral> peripheral_;
 
     public:
+    void connect();
     void connectService();
     bool is_connected();
     std::vector<SimpleBLE::Service> getServices();
