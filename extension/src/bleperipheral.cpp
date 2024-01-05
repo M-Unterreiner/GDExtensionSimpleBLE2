@@ -1,4 +1,5 @@
 #include "bleperipheral.h"
+#include <memory>
 #include <vector>
 
 
@@ -20,4 +21,8 @@ std::vector<SimpleBLE::Service> BLEPeripheral::getServices() {
 // Reads the peripheral
 SimpleBLE::ByteArray BLEPeripheral::readPeripheral() {
     return SimpleBLE::ByteArray();
+}
+
+BLEPeripheral::BLEPeripheral(SimpleBLE::Peripheral* newPeripheral){
+   peripheral_ = std::unique_ptr<SimpleBLE::Peripheral>(newPeripheral);
 }

@@ -37,12 +37,12 @@ SimpleBLE::Peripheral BLEPeripheralManager::scanForThisPeripheral(std::string wa
   while (isNotPeripheralFound) {
     scanPeripherals();
 
-    std::vector<SimpleBLE::Peripheral> peripherals = adapter_->getScanResults();
+    std::vector<SimpleBLE::Peripheral> scannedListOfPeripherals = adapter_->getScanResults();
 
     if (!peripherals.empty()) {
       GDExtensionlogger::log(
           "scanforThisPeripheral: Following peripheral were found:");
-      for (SimpleBLE::Peripheral peripheral : peripherals) {
+      for (SimpleBLE::Peripheral peripheral : scannedListOfPeripherals) {
         GDExtensionlogger::log(peripheral.identifier().c_str());
         std::string identifier = peripheral.identifier();
 

@@ -1,6 +1,7 @@
 #ifndef BLEPERIPHERALMANAGER_H
 #define BLEPERIPHERALMANAGER_H
 
+#include "bleperipheral.h"
 #include <memory>
 #pragma once
 
@@ -18,7 +19,7 @@ class BLEPeripheralManager {
 
 private:
   std::unique_ptr<BLEAdapter> adapter_;
-  std::vector<SimpleBLE::Peripheral> addedPeripherals_;
+  std::vector<BLEPeripheral> addedPeripherals_;
   std::vector<std::pair<SimpleBLE::BluetoothUUID, SimpleBLE::BluetoothUUID>>
       uuidPeripheral1;
   SimpleBLE::Peripheral scanForThisPeripheral(std::string wantedPeripheral);
