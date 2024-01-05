@@ -142,22 +142,23 @@ BLEPeripheralManager::getServicesOfPeripheral(
 }
 
 // TODO: Write an proper implementation
+// Reads only the first peripheral of the list.
 SimpleBLE::ByteArray BLEPeripheralManager::readPeripheral() {
   SimpleBLE::ByteArray rx_data = SimpleBLE::ByteArray();
-
   SimpleBLE::Peripheral peripheral = addedPeripherals_[0];
+  // Needs no check if peripheral is connected, because SimpleBLE::Peripheral does it already.
+  rx_data = peripheral.read(uuidPeripheral1[1].first, uuidPeripheral1[1].second);
+  return rx_data;
+}
 
-  if (isThisPeripheralConnected(peripheral)) {
-    rx_data =
-        peripheral.read(uuidPeripheral1[1].first, uuidPeripheral1[1].second);
-    GDExtensionlogger::log("Couldn't read from peripheral");
-    connectThisPeripheral(peripheral);
-    return rx_data;
-  } else {
-    // TODO: This should be done somewhere else. Only for testing purposes.
-    connectThisPeripheral(peripheral);
-    return rx_data;
+// Check if readed data are empty
+bool isReadDataEmpty(SimpleBLE::ByteArray rx_data){
+  SimpleBLE::ByteArray emptyData = SimpleBLE::ByteArray();
+
+  if (rx_data == emptyData){
+    return true;
   }
+  return false;
 }
 
 bool BLEPeripheralManager::isThisPeripheralConnected(
