@@ -15,7 +15,7 @@ class BLEPeripheral{
 
     public:
     void connectService();
-    bool isPeripheralConnected();
+    bool is_connected();
     std::vector<SimpleBLE::Service> getServices();
     SimpleBLE::ByteArray readPeripheral();
 

@@ -9,7 +9,7 @@ void BLEPeripheral::connectService() {
 }
 
 // Returns if peripheral is connected.
-bool BLEPeripheral::isPeripheralConnected() {
+bool BLEPeripheral::is_connected() {
     return true;
 }
 
