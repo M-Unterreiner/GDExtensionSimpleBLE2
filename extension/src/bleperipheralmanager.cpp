@@ -29,8 +29,7 @@ Array *BLEPeripheralManager::getAdapterList() {
 
 // Scan for this peripheral. Returns the peripheral when found. If not, an empty
 // periphal is returned.
-SimpleBLE::Peripheral
-BLEPeripheralManager::scanForThisPeripheral(std::string wantedPeripheral) {
+SimpleBLE::Peripheral BLEPeripheralManager::scanForThisPeripheral(std::string wantedPeripheral) {
   GDExtensionlogger::log("Entered scanForThisPeripheral");
 
   bool isNotPeripheralFound = true;

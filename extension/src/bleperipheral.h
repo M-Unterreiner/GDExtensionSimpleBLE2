@@ -1,8 +1,8 @@
 #pragma once
 
 // #include <godot_cpp/core/class_db.hpp>
-#include <simpleble/ServiceBase.h>
-#include <simpleble/PeripheralBase.h>
+#include <simpleble/Service.h>
+#include <simpleble/Peripheral.h>
 #include <simpleble/Service.h>
 #include <simpleble/Types.h>
 
@@ -17,4 +17,4 @@ class BLEPeripheral{
     bool isPeripheralConnected();
     std::vector<SimpleBLE::Service> getServices();
     SimpleBLE::ByteArray readPeripheral();
-}:
+};

@@ -70,7 +70,6 @@ bool GDExtensionSimpleBLE::connectService() {
 }
 
 Variant GDExtensionSimpleBLE::readPeripheral(String device_name) {
-
   SimpleBLE::ByteArray rx_data = peripheralManager_->readThisPeripheral(device_name.utf8().get_data());
 
   if(peripheralManager_->isReadDataEmpty(rx_data)){
