@@ -145,7 +145,7 @@ BLEPeripheralManager::getServicesOfPeripheral(
 // Reads only the first service of the list.
 SimpleBLE::ByteArray BLEPeripheralManager::readThisPeripheral(std::string peripheralName) {
 
-  SimpleBLE::Peripheral* peripheral = getPeripheralByName(peripheralName);
+  BLEPeripheral* peripheral = getPeripheralByName(peripheralName);
   SimpleBLE::ByteArray rx_data = SimpleBLE::ByteArray();
 
   if(peripheral == nullptr){
