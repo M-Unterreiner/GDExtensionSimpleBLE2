@@ -90,7 +90,7 @@ bool BLEPeripheralManager::connectAddedPeripherals() {
   if (!addedPeripherals_.empty()) {
     for (auto &peripheral : addedPeripherals_) {
       if (!isThisPeripheralConnected(&peripheral)) {
-        connectThisPeripheral(peripheral);
+        connectThisPeripheral(&peripheral);
       }
     }
     return true;
