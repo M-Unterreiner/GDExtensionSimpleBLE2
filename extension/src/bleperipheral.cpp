@@ -1,5 +1,6 @@
 #include "bleperipheral.h"
 #include <memory>
+#include <utility>
 #include <vector>
 #include <string>
 
@@ -41,7 +42,7 @@ std::string BLEPeripheral::identifier(){
 }
 
 // TODO Correct implementation
-// Gets all services of the peripheral
+// Gets all services from SimpleBLE of the peripheral
 std::vector<SimpleBLE::Service> BLEPeripheral::getServices() {
     if(is_connected()){
         return std::vector<SimpleBLE::Service>();
@@ -53,10 +54,12 @@ std::vector<SimpleBLE::Service> BLEPeripheral::getServices() {
 // Reads the peripheral
 SimpleBLE::ByteArray BLEPeripheral::read() {
     if (is_connected()){
-        // TODO REMOVE DUMMY SERVICE WHICH WAS USED FOR COMPILING
-        SimpleBLE::BluetoothUUID service = SimpleBLE::BluetoothUUID();
-        SimpleBLE::BluetoothUUID characteristic = SimpleBLE::BluetoothUUID();
-        SimpleBLE::ByteArray data = peripheral_->read(service,characteristic);
+        // TODO Is only using the first service
+        BLEService service = services.front();
+        SimpleBLE::BluetoothUUID serviceUUID = service.getUUIDs().first;
+        SimpleBLE::BluetoothUUID characteristicUUID = service.getUUIDs().second;
+
+        SimpleBLE::ByteArray data = peripheral_->read(serviceUUID,characteristicUUID);
         return data;
     }
     return SimpleBLE::ByteArray();

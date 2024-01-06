@@ -7,19 +7,22 @@
 #include <simpleble/Peripheral.h>
 #include <simpleble/Types.h>
 
+#include "bleservice.h"
+
 #include <utility>
 #include <vector>
 #include <string>
 
 class BLEPeripheral{
     private:
-    std::unique_ptr<SimpleBLE::Peripheral> peripheral_;
     bool isConnected = false;
-    std::vector<std::pair<SimpleBLE::Service, SimpleBLE::Characteristic>> services;
+    std::unique_ptr<SimpleBLE::Peripheral> peripheral_;
+    std::vector<BLEService> services;
 
     void setIsConnectedTo(bool connectionState);
     void callback_on_connected();
     void callback_on_disconnected();
+    std::vector<SimpleBLE::Service> getServices();
 
     public:
     void connect();
@@ -27,7 +30,6 @@ class BLEPeripheral{
     bool is_connected();
     void disconnect();
     std::string identifier();
-    std::vector<SimpleBLE::Service> getServices();
     SimpleBLE::ByteArray read();
 
     BLEPeripheral(SimpleBLE::Peripheral* newPeripheral);
