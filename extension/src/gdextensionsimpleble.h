@@ -28,20 +28,12 @@ class GDExtensionSimpleBLE : public RefCounted {
 private:
   std::unique_ptr<BLEPeripheralManager> peripheralManager_;
 
-  Variant readPeripheral(String device_name);
-  PackedByteArray stringToByteArray(const SimpleBLE::ByteArray &p_bytes);
-  void disconnectThisPeripheral(SimpleBLE::Peripheral &peripheral);
-
 protected:
   static void _bind_methods();
 
 public:
   GDExtensionSimpleBLE();
   ~GDExtensionSimpleBLE();
-  Array getAdapterList();
-  bool connectPeripherals(Array peripherals);
-  bool connectService();
-  Variant readService();
 };
 
 #endif // GDEXTENSIONSIMPLEBLE_CLASS_H
