@@ -18,8 +18,7 @@ private:
   std::vector<SimpleBLE::Adapter> adapters;
 
   Array *convertAdapterToArray(SimpleBLE::Adapter adapter);
-  Array *
-  convertVectorOfAdaptersToArray(std::vector<SimpleBLE::Adapter> adapters);
+  Array *convertVectorOfAdaptersToArray(std::vector<SimpleBLE::Adapter> adapters);
   bool setAdapter();
   void setCallbacks();
 
