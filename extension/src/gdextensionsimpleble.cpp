@@ -1,7 +1,6 @@
 // © Copyright 2014-2022, Juan Linietsky, Ariel Manzur and the Godot community
 // (CC-BY 3.0)
 #include "gdextensionsimpleble.h"
-#include "bleperipheralmanager.h"
 #include "gdextensionlogger.h"
 
 #include <algorithm>
