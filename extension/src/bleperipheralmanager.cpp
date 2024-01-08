@@ -156,7 +156,8 @@ SimpleBLE::ByteArray BLEPeripheralManager::readThisPeripheral(std::string periph
   //SimpleBLE::Peripheral peripheral = addedPeripherals_[0];
   // Needs no check if peripheral is connected, because SimpleBLE::Peripheral does it already.
   if(isThisPeripheralConnected(peripheral)){
-    rx_data = peripheral->read(uuidPeripheral1[1].first, uuidPeripheral1[1].second);
+    // TODO Returns empty rx_data
+    //rx_data = peripheral->read(uuidPeripheral1[1].first, uuidPeripheral1[1].second)
     return rx_data;
   }
   GDExtensionlogger::log("BLEPeripheralManager: No data returned, because peripheral was not connected");
