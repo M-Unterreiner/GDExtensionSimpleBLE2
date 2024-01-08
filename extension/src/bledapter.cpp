@@ -84,17 +84,30 @@ std::vector<SimpleBLE::Peripheral> BLEAdapter::getPairedPeripherals() {
   return actualAdapter.get_paired_peripherals();
 };
 
+void BLEAdapter::callbackOnStartedScan(){
+  GDExtensionlogger::log("Scan started.");
+}
+
+void callbackOnScanFound(SimpleBLE::Peripheral peripheral){
+  GDExtensionlogger::log("Peripheral found");
+}
+
+
+void callbackOnStoppedScan(){
+  GDExtensionlogger::log("Scan stopped.");
+}
+
 // Set callbacks when scan started, scan stopped and on scan found.
 void BLEAdapter::setCallbacks() {
   GDExtensionlogger::log("Set callbacks.");
   actualAdapter.set_callback_on_scan_start(
-      [&]() { GDExtensionlogger::log("Scan started."); });
+      [&]() { callbackOnStartedScan(); });
 
   actualAdapter.set_callback_on_scan_stop(
-      [&]() { GDExtensionlogger::log("Scan stopped."); });
+      [&]() { callbackOnStoppedScan(); });
 
   actualAdapter.set_callback_on_scan_found(
       [&](SimpleBLE::Peripheral peripheral) {
-        GDExtensionlogger::log("Peripheral found");
+       callbackOnScanFound(peripheral);
       });
 };

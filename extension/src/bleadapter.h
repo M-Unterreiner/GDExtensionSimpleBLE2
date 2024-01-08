@@ -21,6 +21,9 @@ private:
   Array *convertVectorOfAdaptersToArray(std::vector<SimpleBLE::Adapter> adapters);
   bool setAdapter();
   void setCallbacks();
+  void callbackOnStartedScan();
+  void callbackOnScanFound(SimpleBLE::Peripheral peripheral);
+  void callbackOnStoppedScan();
 
 public:
   BLEAdapter();
