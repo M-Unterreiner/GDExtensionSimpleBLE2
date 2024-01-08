@@ -4,10 +4,10 @@
 #include "gdextensionlogger.h"
 #include <simpleble/SimpleBLE.h>
 
-    BLEAdapter::BLEAdapter() {
-  GDExtensionlogger::log("Adapter instantiated");
-  setAdapter();
-  setCallbacks();
+  BLEAdapter::BLEAdapter() {
+    GDExtensionlogger::log("Adapter instantiated");
+    setAdapter();
+    setCallbacks();
 }
 
 BLEAdapter::~BLEAdapter() {}
@@ -40,7 +40,7 @@ Array *BLEAdapter::convertVectorOfAdaptersToArray(
 }
 
 // SimpleBLE stores adapters in a vector. This function gets from SimpleBLE
-// the adapters and returns tehm in a Godot::Array
+// the adapters and returns them in a Godot::Array
 // Returns an Array with following structure
 // [[identifier, address],[identifier, address]]
 Array *BLEAdapter::getAdapterList() {
