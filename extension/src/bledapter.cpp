@@ -88,12 +88,12 @@ void BLEAdapter::callbackOnStartedScan(){
   GDExtensionlogger::log("Scan started.");
 }
 
-void callbackOnScanFound(SimpleBLE::Peripheral peripheral){
+void BLEAdapter::callbackOnScanFound(SimpleBLE::Peripheral peripheral){
   GDExtensionlogger::log("Peripheral found");
 }
 
 
-void callbackOnStoppedScan(){
+void BLEAdapter::callbackOnStoppedScan(){
   GDExtensionlogger::log("Scan stopped.");
 }
 
