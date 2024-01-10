@@ -5,6 +5,10 @@
 #include <string>
 
 
+BLEPeripheral::~BLEPeripheral(){
+
+}
+
 // Connect service
 void BLEPeripheral::connectService() {
     // Implementation goes here
