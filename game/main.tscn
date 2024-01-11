@@ -8,3 +8,5 @@ script = ExtResource("1_ptcg0")
 
 [node name="BLEManager" type="BLEManager" parent="."]
 script = ExtResource("2_8gx58")
+
+[node name="BLEAdapter" type="BLEAdapter" parent="."]

@@ -43,15 +43,16 @@ Array *BLEAdapter::convertVectorOfAdaptersToArray(
 // the adapters and returns them in a Godot::Array
 // Returns an Array with following structure
 // [[identifier, address],[identifier, address]]
-Array *BLEAdapter::getAdapterList() {
+//Array *BLEAdapter::getAdapterList() {
+void BLEAdapter::getAdapterList(){
   adapters = SimpleBLE::Adapter::get_adapters();
 
-  if (!adapters.empty()) {
-    return convertVectorOfAdaptersToArray(adapters);
-  }
+  // if (!adapters.empty()) {
+  //   return convertVectorOfAdaptersToArray(adapters);
+  // }
 
-  Array *emptyArray = memnew(Array);
-  return emptyArray;
+  // Array *emptyArray = memnew(Array);
+  // return emptyArray;
 }
 
 // Set actual adapter.
@@ -114,6 +115,7 @@ void BLEAdapter::setCallbacks() {
 
 
 void BLEAdapter::_bind_methods() {
+  ClassDB::bind_method(D_METHOD("getAdapterList"), &BLEAdapter::getAdapterList);
   ADD_SIGNAL(
       MethodInfo("updateAdapters", PropertyInfo(Variant::STRING, "Updated Adapters")));
 }

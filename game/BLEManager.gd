@@ -1,6 +1,8 @@
 extends BLEManager
 
-var ble_adapter : BLEAdapter
+@onready
+var ble_adapter : BLEAdapter = get_node("../BLEAdapter")
 
 func _ready():
-	ble_adapter = init()
+	pass
+	

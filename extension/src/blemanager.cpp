@@ -18,8 +18,8 @@ void BLEManager::log_message(String logMessage){
 
 BLEAdapter* BLEManager::init(){
   //log_message("BLEManager initialized");
-  UtilityFunctions::print("Hello from GDExtension");
   BLEAdapter* newAdapter = memnew(BLEAdapter);
+  UtilityFunctions::print(newAdapter);
   return newAdapter;
 
 }

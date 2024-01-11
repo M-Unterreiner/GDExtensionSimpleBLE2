@@ -6,14 +6,15 @@
 #include <godot_cpp/classes/ref.hpp>
 #include <godot_cpp/core/class_db.hpp>
 #include <simpleble/Adapter.h>
+#include <godot_cpp/classes/node.hpp>
 
 #include <string>
 #include <vector>
 
 using namespace godot;
 
-class BLEAdapter : public RefCounted{
-    GDCLASS(BLEAdapter, RefCounted);
+class BLEAdapter : public Node{
+    GDCLASS(BLEAdapter, Node);
 
 private:
   SimpleBLE::Adapter actualAdapter;
@@ -34,7 +35,8 @@ public:
   BLEAdapter();
   ~BLEAdapter();
 
-  Array* getAdapterList();
+  // Array* getAdapterList();
+  void getAdapterList();
   void scanPeripherals(int ms = 5000);
   std::vector<SimpleBLE::Peripheral> getScanResults();
   std::vector<SimpleBLE::Peripheral> getPairedPeripherals();
