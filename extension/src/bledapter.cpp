@@ -14,26 +14,25 @@ BLEAdapter::~BLEAdapter() {}
 
 // Converts SimpleBLE::Adapter to Godot::Array with following structure
 // [[String identifier, String Address, SimpleBLE::Adapter adapter]]
-Array *BLEAdapter::convertAdapterToArray(SimpleBLE::Adapter adapter) {
+Array BLEAdapter::convertAdapterToArray(SimpleBLE::Adapter adapter) {
   std::string identifier = adapter.identifier();
   std::string address = adapter.address();
 
-  Array *newAdapter = memnew(Array);
+  Array newAdapter = Array();
 
-  newAdapter->push_front(identifier.c_str());
-  newAdapter->push_back(address.c_str());
+  newAdapter.push_front(identifier.c_str());
+  newAdapter.push_back(address.c_str());
 
   return newAdapter;
 }
 
 // Converts a vector of SimpleBLE::Adapter to Godot::Array
-Array *BLEAdapter::convertVectorOfAdaptersToArray(
-    std::vector<SimpleBLE::Adapter> adapters) {
-  Array *adapterList = memnew(Array);
+Array BLEAdapter::convertVectorOfAdaptersToArray(std::vector<SimpleBLE::Adapter> adapters) {
+  Array adapterList = Array();
 
   for (SimpleBLE::Adapter adapter : adapters) {
-    Array *convertedAdapter = convertAdapterToArray(adapter);
-    adapterList->push_back(convertedAdapter);
+    Array convertedAdapter = convertAdapterToArray(adapter);
+    adapterList.push_back(convertedAdapter);
   }
 
   return adapterList;
@@ -43,16 +42,15 @@ Array *BLEAdapter::convertVectorOfAdaptersToArray(
 // the adapters and returns them in a Godot::Array
 // Returns an Array with following structure
 // [[identifier, address],[identifier, address]]
-//Array *BLEAdapter::getAdapterList() {
-void BLEAdapter::getAdapterList(){
+Array BLEAdapter::getAdapterList() {
   adapters = SimpleBLE::Adapter::get_adapters();
 
-  // if (!adapters.empty()) {
-  //   return convertVectorOfAdaptersToArray(adapters);
-  // }
+  if (!adapters.empty()) {
+    return convertVectorOfAdaptersToArray(adapters);
+  }
 
-  // Array *emptyArray = memnew(Array);
-  // return emptyArray;
+  Array emptyArray = Array();
+  return emptyArray;
 }
 
 // Set actual adapter.

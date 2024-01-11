@@ -20,8 +20,8 @@ private:
   SimpleBLE::Adapter actualAdapter;
   std::vector<SimpleBLE::Adapter> adapters;
 
-  Array *convertAdapterToArray(SimpleBLE::Adapter adapter);
-  Array *convertVectorOfAdaptersToArray(std::vector<SimpleBLE::Adapter> adapters);
+  Array convertAdapterToArray(SimpleBLE::Adapter adapter);
+  Array convertVectorOfAdaptersToArray(std::vector<SimpleBLE::Adapter> adapters);
   bool setAdapter();
   void setCallbacks();
   void callbackOnStartedScan();
@@ -35,8 +35,7 @@ public:
   BLEAdapter();
   ~BLEAdapter();
 
-  // Array* getAdapterList();
-  void getAdapterList();
+  Array getAdapterList();
   void scanPeripherals(int ms = 5000);
   std::vector<SimpleBLE::Peripheral> getScanResults();
   std::vector<SimpleBLE::Peripheral> getPairedPeripherals();
