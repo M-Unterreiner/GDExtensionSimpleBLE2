@@ -7,7 +7,6 @@
 
 #include "bleadapter.h"
 #include <godot_cpp/classes/ref.hpp>
-#include <godot_cpp/core/class_db.hpp>
 #include <simpleble/SimpleBLE.h>
 #include <simpleble/Utils.h>
 
@@ -16,8 +15,7 @@
 
 using namespace godot;
 
-class BLEPeripheralManager : public RefCounted{
-    GDCLASS(BLEPeripheralManager, RefCounted);
+class BLEPeripheralManager {
 
 private:
   std::unique_ptr<BLEAdapter> adapter_;
@@ -26,9 +24,6 @@ private:
   SimpleBLE::Peripheral scanForThisPeripheral(std::string wantedPeripheral);
   BLEPeripheral* getPeripheralByName(std::string peripheralName);
   bool isThisPeripheralConnected(BLEPeripheral* peripheral);
-
-protected:
-  static void _bind_methods();
 
 public:
   void scanPeripherals();
