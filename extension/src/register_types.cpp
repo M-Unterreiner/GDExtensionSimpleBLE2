@@ -1,10 +1,9 @@
 #include "register_types.h"
-#include "gdextensionsimpleble.h"
-#include "bleadapter.h"
 #include <gdextension_interface.h>
 #include <godot_cpp/core/class_db.hpp>
 #include <godot_cpp/core/defs.hpp>
 #include <godot_cpp/godot.hpp>
+#include <godot_cpp/classes/node.hpp>
 
 #include "gdextensionsimpleble.h"
 #include "blemanager.h"
