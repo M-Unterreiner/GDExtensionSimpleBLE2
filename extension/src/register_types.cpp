@@ -1,6 +1,8 @@
 #include "register_types.h"
 #include "gdextensionsimpleble.h"
 #include "bleadapter.h"
+#include "bleperipheral.h"
+
 #include <gdextension_interface.h>
 #include <godot_cpp/core/class_db.hpp>
 #include <godot_cpp/core/defs.hpp>
@@ -14,6 +16,7 @@ void initialize_gdextensionsimpleble_types(ModuleInitializationLevel p_level) {
   }
   ClassDB::register_class<GDExtensionSimpleBLE>();
   ClassDB::register_class<BLEAdapter>();
+  ClassDB::register_class<BLEPeripheral>();
 }
 
 void uninitialize_gdextensionsimpleble_types(
