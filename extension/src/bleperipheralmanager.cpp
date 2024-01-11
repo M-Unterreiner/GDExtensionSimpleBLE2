@@ -24,9 +24,9 @@ void BLEPeripheralManager::scanPeripherals() {
 };
 
 // Get list of adapters which are returned as an array.
-Array *BLEPeripheralManager::getAdapterList() {
-  return adapter_->getAdapterList();
-}
+//Array *BLEPeripheralManager::getAdapterList() {
+//  return adapter_->getAdapterList();
+//}
 
 // Scan for this peripheral. Returns the peripheral when found. If not, an empty
 // periphal is returned.
