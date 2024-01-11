@@ -111,3 +111,9 @@ void BLEAdapter::setCallbacks() {
        callbackOnScanFound(peripheral);
       });
 };
+
+
+void BLEAdapter::_bind_methods() {
+  ADD_SIGNAL(
+      MethodInfo("updateAdapters", PropertyInfo(Variant::STRING, "Updated Adapters")));
+}

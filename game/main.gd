@@ -8,6 +8,7 @@ var peripherals : Array = [device_2]
 func _ready() -> void:
 	ble_manager = GDExtensionSimpleBLE.new()
 	ble_manager.print_message.connect(_print_message)
+	var ble_adapter : BLEAdapter = BLEAdapter.new()
 	
 func string_to_quaternion(data : String):
 	if (data.length() > 0):

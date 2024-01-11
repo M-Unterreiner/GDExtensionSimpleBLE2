@@ -3,6 +3,7 @@
 
 #pragma once
 
+#include <godot_cpp/classes/ref.hpp>
 #include <godot_cpp/core/class_db.hpp>
 #include <simpleble/Adapter.h>
 
@@ -11,7 +12,8 @@
 
 using namespace godot;
 
-class BLEAdapter {
+class BLEAdapter : public RefCounted{
+    GDCLASS(BLEAdapter, RefCounted);
 
 private:
   SimpleBLE::Adapter actualAdapter;
@@ -24,6 +26,9 @@ private:
   void callbackOnStartedScan();
   void callbackOnScanFound(SimpleBLE::Peripheral peripheral);
   void callbackOnStoppedScan();
+
+protected:
+  static void _bind_methods();
 
 public:
   BLEAdapter();
