@@ -16,11 +16,12 @@ void BLEManager::log_message(String logMessage){
   emit_signal("BLEManager_log", "BLEManager initialized");
 }
 
-Variant BLEManager::init(){
+BLEAdapter* BLEManager::init(){
   //log_message("BLEManager initialized");
   UtilityFunctions::print("Hello from GDExtension");
-  bleadapter_ = std::make_unique<BLEAdapter>();
-  return &bleadapter_;
+  BLEAdapter* newAdapter = memnew(BLEAdapter);
+  return newAdapter;
+
 }
 
 void BLEManager::_bind_methods() {

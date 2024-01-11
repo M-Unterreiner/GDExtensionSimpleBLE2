@@ -24,7 +24,7 @@ private:
   std::unique_ptr<BLEAdapter> bleadapter_;
 
 public:
-  Variant init();
+  BLEAdapter* init();
   BLEManager();
   ~BLEManager();
 };
