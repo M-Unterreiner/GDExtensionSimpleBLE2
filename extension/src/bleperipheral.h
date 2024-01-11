@@ -1,26 +1,20 @@
 #pragma once
 
+// #include <godot_cpp/core/class_db.hpp>
+#include <memory>
 #include <simpleble/Service.h>
 #include <simpleble/Characteristic.h>
 #include <simpleble/Peripheral.h>
 #include <simpleble/Types.h>
 
-#include <godot_cpp/classes/ref.hpp>
-#include <godot_cpp/core/class_db.hpp>
-
 #include "bleservice.h"
 
-#include <memory>
 #include <utility>
 #include <vector>
 #include <string>
 
-using namespace godot;
-
-class BLEPeripheral : public RefCounted {
-    GDCLASS(BLEPeripheral, RefCounted);
-
-private:
+class BLEPeripheral{
+    private:
     bool isConnected = false;
     std::unique_ptr<SimpleBLE::Peripheral> peripheral_;
     std::vector<BLEService> services;
@@ -30,11 +24,7 @@ private:
     void callback_on_disconnected();
     std::vector<SimpleBLE::Service> getServices();
 
-
-protected:
-    static void _bind_methods();
-
-public:
+    public:
     void connect();
     void connectService();
     bool is_connected();
@@ -42,7 +32,6 @@ public:
     std::string identifier();
     SimpleBLE::ByteArray read();
 
-    BLEPeripheral();
-    BLEPeripheral(SimpleBLE::Peripheral *newPeripheral);
+    BLEPeripheral(SimpleBLE::Peripheral* newPeripheral);
     ~BLEPeripheral();
 };
