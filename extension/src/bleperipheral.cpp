@@ -69,6 +69,9 @@ SimpleBLE::ByteArray BLEPeripheral::read() {
     return SimpleBLE::ByteArray();
 }
 
+BLEPeripheral::BLEPeripheral(){
+}
+
 BLEPeripheral::BLEPeripheral(SimpleBLE::Peripheral* newPeripheral){
    peripheral_ = std::unique_ptr<SimpleBLE::Peripheral>(newPeripheral);
    peripheral_->set_callback_on_connected([&](){callback_on_connected();});
@@ -83,4 +86,11 @@ void BLEPeripheral::callback_on_connected(){
 // Callback function which is called when peripheral disconnects
 void BLEPeripheral::callback_on_disconnected(){
    setIsConnectedTo(false);
+}
+
+void BLEPeripheral::_bind_methods() {
+  //ClassDB::bind_method(D_METHOD("init"), &BLEManager::init);
+  //ADD_SIGNAL(
+  //    MethodInfo("updateAdapters", PropertyInfo(Variant::STRING, "Updated Adapters")));
+  //    MethodInfo("BLEManager_log", PropertyInfo(Variant::STRING, "message")));
 }
