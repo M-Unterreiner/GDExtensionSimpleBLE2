@@ -20,7 +20,7 @@ class BLEAdapter : public Node{
 private:
   SimpleBLE::Adapter actualAdapter;
   std::vector<SimpleBLE::Adapter> adapters;
-  std::vector<SimpleBLE::Peripheral> peripheral_;
+  std::vector<SimpleBLE::Peripheral> peripherals_;
 
   Array convertAdapterToArray(SimpleBLE::Adapter adapter);
   Array convertVectorOfAdaptersToArray(std::vector<SimpleBLE::Adapter> adapters);

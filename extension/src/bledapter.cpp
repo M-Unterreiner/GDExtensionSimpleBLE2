@@ -88,20 +88,20 @@ std::vector<SimpleBLE::Peripheral> BLEAdapter::getPairedPeripherals() {
 
 void BLEAdapter::callbackOnStartedScan(){
   GDExtensionlogger::log("Scan started.");
-  peripheral_.clear();
+  peripherals_.clear();
   emit_signal("started_scan");
 }
 
 void BLEAdapter::callbackOnScanFound(SimpleBLE::Peripheral peripheral){
-  peripheral_.push_back(peripheral);
+  peripherals_.push_back(peripheral);
   GDExtensionlogger::log("Peripheral found");
 }
 
 
 void BLEAdapter::callbackOnStoppedScan(){
   GDExtensionlogger::log("Scan stopped.");
-  if(!peripheral_.empty()){
-    for (SimpleBLE::Peripheral peripheral : peripheral_){
+  if(!peripherals_.empty()){
+    for (SimpleBLE::Peripheral peripheral : peripherals_){
         emit_signal("found_new_peripheral", peripheral.identifier().c_str());
       }
   } else {
