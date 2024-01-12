@@ -1,6 +1,7 @@
 #include "bleadapter.h"
 #include <algorithm>
 
+#include "bleperipheral.h"
 #include "gdextensionlogger.h"
 #include <simpleble/SimpleBLE.h>
 
@@ -116,4 +117,7 @@ void BLEAdapter::_bind_methods() {
   ClassDB::bind_method(D_METHOD("getAdapterList"), &BLEAdapter::getAdapterList);
   ADD_SIGNAL(
       MethodInfo("updateAdapters", PropertyInfo(Variant::STRING, "Updated Adapters")));
+  ADD_SIGNAL(MethodInfo("started_scan"));
+  ADD_SIGNAL(MethodInfo("stopped_scan"));
+  //ADD_SIGNAL(MethodInfo("found_new_peripheral", PropertyInfo(BLEPeripheral, "new_peripheral")));
 }
