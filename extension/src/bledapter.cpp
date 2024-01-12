@@ -89,13 +89,20 @@ void BLEAdapter::callbackOnStartedScan(){
 }
 
 void BLEAdapter::callbackOnScanFound(SimpleBLE::Peripheral peripheral){
-  emit_signal("found_new_peripheral", "Peripheral1");
+  peripheral_.push_back(peripheral);
   GDExtensionlogger::log("Peripheral found");
 }
 
 
 void BLEAdapter::callbackOnStoppedScan(){
   GDExtensionlogger::log("Scan stopped.");
+  if(!peripheral_.empty()){
+    for (SimpleBLE::Peripheral peripheral : peripheral_){
+        emit_signal("found_new_peripheral", peripheral.identifier().c_str());
+      }
+  } else {
+    emit_signal("found_new_peripheral", "No peripheral found");
+  }
 }
 
 // Set callbacks when scan started, scan stopped and on scan found.

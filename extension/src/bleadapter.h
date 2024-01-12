@@ -6,6 +6,7 @@
 #include <godot_cpp/classes/ref.hpp>
 #include <godot_cpp/core/class_db.hpp>
 #include <simpleble/Adapter.h>
+#include <simpleble/Peripheral.h>
 #include <godot_cpp/classes/node.hpp>
 
 #include <string>
@@ -19,6 +20,7 @@ class BLEAdapter : public Node{
 private:
   SimpleBLE::Adapter actualAdapter;
   std::vector<SimpleBLE::Adapter> adapters;
+  std::vector<SimpleBLE::Peripheral> peripheral_;
 
   Array convertAdapterToArray(SimpleBLE::Adapter adapter);
   Array convertVectorOfAdaptersToArray(std::vector<SimpleBLE::Adapter> adapters);
