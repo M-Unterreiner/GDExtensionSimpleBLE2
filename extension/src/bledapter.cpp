@@ -71,7 +71,9 @@ bool BLEAdapter::setAdapter() {
 }
 
 // Scans for peripherals in miniseconds
-void BLEAdapter::start_scan(int ms) { actualAdapter.scan_for(ms); }
+void BLEAdapter::start_scan(int ms) {
+  actualAdapter.scan_for(ms);
+}
 
 // Retrieve the scanned peripherals within a vector.
 std::vector<SimpleBLE::Peripheral> BLEAdapter::getScanResults() {
@@ -86,6 +88,8 @@ std::vector<SimpleBLE::Peripheral> BLEAdapter::getPairedPeripherals() {
 
 void BLEAdapter::callbackOnStartedScan(){
   GDExtensionlogger::log("Scan started.");
+  peripheral_.clear();
+  emit_signal("started_scan");
 }
 
 void BLEAdapter::callbackOnScanFound(SimpleBLE::Peripheral peripheral){
