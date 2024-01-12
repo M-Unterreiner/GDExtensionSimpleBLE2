@@ -5,7 +5,7 @@ func _ready():
 
 
 func _on_btn_start_scan_button_down():
-	pass # Replace with function body.
+	scanPeripherals(5000)
 
 
 func _on_btn_stop_scan_button_down():

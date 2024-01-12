@@ -115,6 +115,7 @@ void BLEAdapter::setCallbacks() {
 
 void BLEAdapter::_bind_methods() {
   ClassDB::bind_method(D_METHOD("getAdapterList"), &BLEAdapter::getAdapterList);
+  ClassDB::bind_method(D_METHOD("scanPeripherals", "ms"), &BLEAdapter::scanPeripherals);
   ADD_SIGNAL(
       MethodInfo("updateAdapters", PropertyInfo(Variant::STRING, "Updated Adapters")));
   ADD_SIGNAL(MethodInfo("started_scan"));
