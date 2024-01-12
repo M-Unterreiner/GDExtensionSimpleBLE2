@@ -5,8 +5,4 @@ func _ready():
 
 
 func _on_btn_start_scan_button_down():
-	start_scan(500)
-
-
-func _on_btn_stop_scan_button_down():
-	pass # Replace with function body.
+	start_scan(2500)
