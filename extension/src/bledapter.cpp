@@ -89,6 +89,7 @@ void BLEAdapter::callbackOnStartedScan(){
 }
 
 void BLEAdapter::callbackOnScanFound(SimpleBLE::Peripheral peripheral){
+  emit_signal("found_new_peripheral", "Peripheral1");
   GDExtensionlogger::log("Peripheral found");
 }
 
@@ -120,5 +121,6 @@ void BLEAdapter::_bind_methods() {
       MethodInfo("updateAdapters", PropertyInfo(Variant::STRING, "Updated Adapters")));
   ADD_SIGNAL(MethodInfo("started_scan"));
   ADD_SIGNAL(MethodInfo("stopped_scan"));
+  ADD_SIGNAL(MethodInfo("found_new_peripheral", PropertyInfo(Variant::STRING, "message")));
   //ADD_SIGNAL(MethodInfo("found_new_peripheral", PropertyInfo(BLEPeripheral, "new_peripheral")));
 }
