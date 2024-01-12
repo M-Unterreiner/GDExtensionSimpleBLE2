@@ -49,8 +49,11 @@ update_on_text_changed = true
 suffix = "ms"
 
 [node name="ItemList" type="ItemList" parent="BLE GUI/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 auto_height = true
+item_count = 1
+item_0/text = ""
 script = ExtResource("5_8xm7n")
 
 [connection signal="BLEManager_log" from="BLEManager" to="BLEManager" method="_on_ble_manager_log"]
@@ -60,3 +63,4 @@ script = ExtResource("5_8xm7n")
 [connection signal="updateAdapters" from="BLEAdapter" to="BLE GUI" method="_on_ble_adapter_update_adapters"]
 [connection signal="button_down" from="BLE GUI/VBoxContainer/HBoxContainer/btn_start_scan" to="BLEAdapter" method="_on_btn_start_scan_button_down"]
 [connection signal="value_changed" from="BLE GUI/VBoxContainer/HBoxContainer/SpinBox" to="BLEAdapter" method="_on_spin_box_value_changed"]
+[connection signal="item_selected" from="BLE GUI/VBoxContainer/ItemList" to="BLEAdapter" method="_on_item_list_item_selected"]
