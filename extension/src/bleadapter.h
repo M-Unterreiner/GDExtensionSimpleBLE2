@@ -36,7 +36,7 @@ public:
   ~BLEAdapter();
 
   Array getAdapterList();
-  void scanPeripherals(int ms = 5000);
+  void start_scan(int ms = 5000);
   std::vector<SimpleBLE::Peripheral> getScanResults();
   std::vector<SimpleBLE::Peripheral> getPairedPeripherals();
 };

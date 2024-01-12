@@ -71,7 +71,7 @@ bool BLEAdapter::setAdapter() {
 }
 
 // Scans for peripherals in miniseconds
-void BLEAdapter::scanPeripherals(int ms) { actualAdapter.scan_for(ms); }
+void BLEAdapter::start_scan(int ms) { actualAdapter.scan_for(ms); }
 
 // Retrieve the scanned peripherals within a vector.
 std::vector<SimpleBLE::Peripheral> BLEAdapter::getScanResults() {
@@ -115,7 +115,7 @@ void BLEAdapter::setCallbacks() {
 
 void BLEAdapter::_bind_methods() {
   ClassDB::bind_method(D_METHOD("getAdapterList"), &BLEAdapter::getAdapterList);
-  ClassDB::bind_method(D_METHOD("scanPeripherals", "ms"), &BLEAdapter::scanPeripherals);
+  ClassDB::bind_method(D_METHOD("start_scan", "ms"), &BLEAdapter::start_scan);
   ADD_SIGNAL(
       MethodInfo("updateAdapters", PropertyInfo(Variant::STRING, "Updated Adapters")));
   ADD_SIGNAL(MethodInfo("started_scan"));
