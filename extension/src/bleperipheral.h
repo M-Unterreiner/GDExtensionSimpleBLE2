@@ -43,6 +43,6 @@ public:
     SimpleBLE::ByteArray read();
 
     BLEPeripheral();
-    BLEPeripheral(SimpleBLE::Peripheral* newPeripheral);
+    BLEPeripheral(SimpleBLE::Peripheral& newPeripheral);
     ~BLEPeripheral();
 };

@@ -72,8 +72,8 @@ SimpleBLE::ByteArray BLEPeripheral::read() {
 BLEPeripheral::BLEPeripheral(){
 }
 
-BLEPeripheral::BLEPeripheral(SimpleBLE::Peripheral* newPeripheral){
-   peripheral_ = std::unique_ptr<SimpleBLE::Peripheral>(newPeripheral);
+BLEPeripheral::BLEPeripheral(SimpleBLE::Peripheral& newPeripheral){
+   peripheral_ = std::unique_ptr<SimpleBLE::Peripheral>(&newPeripheral);
    peripheral_->set_callback_on_connected([&](){callback_on_connected();});
    peripheral_->set_callback_on_disconnected([&](){callback_on_disconnected();});
 }

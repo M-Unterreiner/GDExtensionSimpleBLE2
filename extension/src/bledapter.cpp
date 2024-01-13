@@ -102,6 +102,7 @@ void BLEAdapter::callbackOnStoppedScan(){
   GDExtensionlogger::log("Scan stopped.");
   if(!peripherals_.empty()){
     for (SimpleBLE::Peripheral peripheral : peripherals_){
+        BLEPeripheral* newPeripheral = memnew(BLEPeripheral(peripheral));
         emit_signal("found_new_peripheral", peripheral.identifier().c_str());
       }
   } else {
