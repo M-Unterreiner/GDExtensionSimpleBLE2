@@ -39,7 +39,7 @@ public:
     void connectService();
     bool is_connected();
     void disconnect();
-    std::string identifier();
+    String identifier();
     SimpleBLE::ByteArray read();
 
     BLEPeripheral();

@@ -38,9 +38,9 @@ void BLEPeripheral::disconnect() {
 }
 
 // Returns the identifiere / name of the peripheral
-std::string BLEPeripheral::identifier(){
+String BLEPeripheral::identifier(){
     //if(is_connected()){
-        return peripheral_->identifier();
+        return peripheral_->identifier().c_str();
     //}
     //return std::string{"Not Connected"};
 }
@@ -89,7 +89,7 @@ void BLEPeripheral::callback_on_disconnected(){
 }
 
 void BLEPeripheral::_bind_methods() {
-  //ClassDB::bind_method(D_METHOD("init"), &BLEManager::init);
+  ClassDB::bind_method(D_METHOD("identifier"), &BLEPeripheral::identifier);
   //ADD_SIGNAL(
   //    MethodInfo("updateAdapters", PropertyInfo(Variant::STRING, "Updated Adapters")));
   //    MethodInfo("BLEManager_log", PropertyInfo(Variant::STRING, "message")));
