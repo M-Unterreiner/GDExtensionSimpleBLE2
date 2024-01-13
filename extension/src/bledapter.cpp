@@ -2,6 +2,7 @@
 #include <algorithm>
 
 #include "bleperipheral.h"
+#include "gdextensionlogger.h"
 
 #include <godot_cpp/variant/utility_functions.hpp>
 #include <simpleble/SimpleBLE.h>
@@ -107,8 +108,6 @@ void BLEAdapter::callbackOnStoppedScan(){
         emit_signal("found_new_peripheral", newPeripheral->get_instance_id());
         UtilityFunctions::print(newPeripheral->get_instance_id());
       }
-  } else {
-    emit_signal("found_new_peripheral", "No peripheral found");
   }
 }
 
