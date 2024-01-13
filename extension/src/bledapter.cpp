@@ -2,7 +2,8 @@
 #include <algorithm>
 
 #include "bleperipheral.h"
-#include "gdextensionlogger.h"
+
+#include <godot_cpp/variant/utility_functions.hpp>
 #include <simpleble/SimpleBLE.h>
 
   BLEAdapter::BLEAdapter() {
@@ -103,7 +104,8 @@ void BLEAdapter::callbackOnStoppedScan(){
   if(!peripherals_.empty()){
     for (SimpleBLE::Peripheral peripheral : peripherals_){
         BLEPeripheral* newPeripheral = memnew(BLEPeripheral(peripheral));
-        emit_signal("found_new_peripheral", peripheral.identifier().c_str());
+        emit_signal("found_new_peripheral", newPeripheral->get_instance_id());
+        UtilityFunctions::print(newPeripheral->get_instance_id());
       }
   } else {
     emit_signal("found_new_peripheral", "No peripheral found");
@@ -133,6 +135,6 @@ void BLEAdapter::_bind_methods() {
       MethodInfo("updateAdapters", PropertyInfo(Variant::STRING, "Updated Adapters")));
   ADD_SIGNAL(MethodInfo("started_scan"));
   ADD_SIGNAL(MethodInfo("stopped_scan"));
-  ADD_SIGNAL(MethodInfo("found_new_peripheral", PropertyInfo(Variant::STRING, "message")));
+  ADD_SIGNAL(MethodInfo("found_new_peripheral", PropertyInfo(Variant::INT, "id")));
   //ADD_SIGNAL(MethodInfo("found_new_peripheral", PropertyInfo(BLEPeripheral, "new_peripheral")));
 }

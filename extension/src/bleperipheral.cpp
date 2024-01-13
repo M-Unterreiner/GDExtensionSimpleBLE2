@@ -39,10 +39,10 @@ void BLEPeripheral::disconnect() {
 
 // Returns the identifiere / name of the peripheral
 std::string BLEPeripheral::identifier(){
-    if(is_connected()){
+    //if(is_connected()){
         return peripheral_->identifier();
-    }
-    return std::string{"Not Connected"};
+    //}
+    //return std::string{"Not Connected"};
 }
 
 // TODO Correct implementation
