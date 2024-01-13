@@ -65,6 +65,7 @@ script = ExtResource("5_8xm7n")
 [connection signal="started_scan" from="BLEAdapter" to="ble_peripheral_manager" method="_on_ble_adapter_started_scan"]
 [connection signal="started_scan" from="BLEAdapter" to="BLE GUI/VBoxContainer/ItemList" method="_on_ble_adapter_started_scan"]
 [connection signal="updateAdapters" from="BLEAdapter" to="BLE GUI" method="_on_ble_adapter_update_adapters"]
+[connection signal="new_peripheral_stored" from="ble_peripheral_manager" to="BLE GUI/VBoxContainer/ItemList" method="_on_ble_peripheral_manager_new_peripheral_stored"]
 [connection signal="button_down" from="BLE GUI/VBoxContainer/HBoxContainer/btn_start_scan" to="BLEAdapter" method="_on_btn_start_scan_button_down"]
 [connection signal="value_changed" from="BLE GUI/VBoxContainer/HBoxContainer/SpinBox" to="BLEAdapter" method="_on_spin_box_value_changed"]
-[connection signal="item_selected" from="BLE GUI/VBoxContainer/ItemList" to="BLEAdapter" method="_on_item_list_item_selected"]
+[connection signal="item_selected" from="BLE GUI/VBoxContainer/ItemList" to="ble_peripheral_manager" method="_on_item_list_item_selected"]
