@@ -5,9 +5,10 @@
 
 #include <godot_cpp/classes/ref.hpp>
 #include <godot_cpp/core/class_db.hpp>
+#include <godot_cpp/classes/node.hpp>
+
 #include <simpleble/Adapter.h>
 #include <simpleble/Peripheral.h>
-#include <godot_cpp/classes/node.hpp>
 
 #include <string>
 #include <vector>

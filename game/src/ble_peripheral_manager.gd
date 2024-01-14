@@ -30,3 +30,4 @@ func _on_item_list_item_selected(index):
 		if(peripheral.identifier() == item_list.get_item_text(index)):
 			selected_peripheral_ = instance_from_id(id)
 			print_debug(selected_peripheral_.identifier() ," was selected.")
+

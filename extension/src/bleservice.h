@@ -1,24 +1,38 @@
-#pragma
+#pragma once
+
+#include <godot_cpp/classes/ref.hpp>
+#include <godot_cpp/core/class_db.hpp>
+#include <godot_cpp/classes/node.hpp>
 
 #include <simpleble/Service.h>
 #include <simpleble/Characteristic.h>
 #include <simpleble/Types.h>
 
+
 #include <utility>
 
-class BLEService {
-    private:
+using namespace godot;
+
+class BLEService : public Node{
+        GDCLASS(BLEService, Node);
+
+private:
     SimpleBLE::Characteristic* characteristic_;
     SimpleBLE::Service* service_;
     SimpleBLE::BluetoothUUID serviceUUID;
     SimpleBLE::BluetoothUUID characteristicUUID;
     std::pair<SimpleBLE::BluetoothUUID, SimpleBLE::BluetoothUUID> uuids_;
 
-    public:
-    std::pair<SimpleBLE::BluetoothUUID, SimpleBLE::BluetoothUUID> getUUIDs();
-    bool canNotify();
-    bool canRead();
+protected:
+  static void _bind_methods();
 
+public:
+    std::pair<SimpleBLE::BluetoothUUID, SimpleBLE::BluetoothUUID> getUUIDs();
+    Array getUUIDsInArray();
+    bool can_notify();
+    bool can_read();
+
+    BLEService();
     BLEService(SimpleBLE::BluetoothUUID serviceUUID, SimpleBLE::BluetoothUUID characteristicUUID);
     ~BLEService();
 };
