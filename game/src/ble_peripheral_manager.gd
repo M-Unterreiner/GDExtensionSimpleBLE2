@@ -9,12 +9,12 @@ signal cleared_stored_peripherals
 
 func _on_ble_adapter_found_new_peripheral(id):
 	var new_peripheral : BLEPeripheral = instance_from_id(id)
-	print_debug("Created new peripheral with id:", new_peripheral.get_instance_id())
+	#print_debug("Created new peripheral with id:", new_peripheral.get_instance_id())
 	store_new_peripheral(new_peripheral)
 	
 func store_new_peripheral(new_peripheral : BLEPeripheral):
 	peripherals_.append(new_peripheral)
-	print_debug(new_peripheral.identifier(), ":", new_peripheral.get_instance_id())
+	#print_debug(new_peripheral.identifier(), ":", new_peripheral.get_instance_id())
 	emit_signal("new_peripheral_stored")
 
 
