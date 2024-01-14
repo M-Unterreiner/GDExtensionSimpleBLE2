@@ -27,9 +27,6 @@ func _on_item_list_item_selected(index):
 	var item_list : ItemList = get_node("../BLE GUI/VBoxContainer/ItemList")
 	for peripheral : BLEPeripheral in peripherals_:
 		var id = peripheral.get_instance_id()
-		print_debug(peripheral.identifier(),":",id," was selected")
-		
-		#if(peripheral.identifier() == item_list.get_item_text(index)):
-
-			#selected_peripheral_ = instance_from_id(id)
-			#print_debug(selected_peripheral_.identifier() ," was selected.")
+		if(peripheral.identifier() == item_list.get_item_text(index)):
+			selected_peripheral_ = instance_from_id(id)
+			print_debug(selected_peripheral_.identifier() ," was selected.")
