@@ -23,15 +23,15 @@ script = ExtResource("4_e1iat")
 [node name="BLE GUI" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
-offset_right = 200.0
-offset_bottom = 200.0
+offset_right = 528.0
+offset_bottom = 216.0
 script = ExtResource("3_t3fh6")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="BLE GUI"]
 custom_minimum_size = Vector2(200, 200)
 layout_mode = 0
-offset_right = 198.0
-offset_bottom = 141.0
+offset_right = 200.0
+offset_bottom = 200.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="BLE GUI/VBoxContainer"]
 custom_minimum_size = Vector2(200, 0)
@@ -58,6 +58,15 @@ auto_height = true
 item_count = 1
 item_0/text = ""
 script = ExtResource("5_8xm7n")
+
+[node name="ItemList" type="ItemList" parent="BLE GUI"]
+layout_mode = 0
+offset_left = 256.0
+offset_top = 32.0
+offset_right = 512.0
+offset_bottom = 200.0
+item_count = 1
+item_0/text = ""
 
 [connection signal="BLEManager_log" from="BLEManager" to="BLEManager" method="_on_ble_manager_log"]
 [connection signal="found_new_peripheral" from="BLEAdapter" to="ble_peripheral_manager" method="_on_ble_adapter_found_new_peripheral"]
