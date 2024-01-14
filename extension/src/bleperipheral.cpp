@@ -27,7 +27,7 @@ void BLEPeripheral::setIsConnectedTo(bool connectionState){
 
 
 // Returns if peripheral is connected.
-bool BLEPeripheral::is_connected() {
+bool BLEPeripheral::is_peripheral_connected() {
     setIsConnectedTo(peripheral_->is_connected());
     return isConnected;
 }
@@ -39,34 +39,25 @@ void BLEPeripheral::disconnect() {
 
 // Returns the identifiere / name of the peripheral
 String BLEPeripheral::identifier(){
-    //if(is_connected()){
-        return peripheral_->identifier().c_str();
-    //}
-    //return std::string{"Not Connected"};
+    return peripheral_->identifier().c_str();
 }
 
 // TODO Correct implementation
 // Gets all services from SimpleBLE of the peripheral
 std::vector<SimpleBLE::Service> BLEPeripheral::getServices() {
-    if(is_connected()){
-        return std::vector<SimpleBLE::Service>();
-    }
     return std::vector<SimpleBLE::Service>();
 }
 
 // TODO Not implemented for several services.
 // Reads the peripheral
 SimpleBLE::ByteArray BLEPeripheral::read() {
-    if (is_connected()){
-        // TODO Is only using the first service
-        BLEService service = services.front();
-        SimpleBLE::BluetoothUUID serviceUUID = service.getUUIDs().first;
-        SimpleBLE::BluetoothUUID characteristicUUID = service.getUUIDs().second;
+// TODO Is only using the first service
+    BLEService service = services.front();
+    SimpleBLE::BluetoothUUID serviceUUID = service.getUUIDs().first;
+    SimpleBLE::BluetoothUUID characteristicUUID = service.getUUIDs().second;
 
-        SimpleBLE::ByteArray data = peripheral_->read(serviceUUID,characteristicUUID);
-        return data;
-    }
-    return SimpleBLE::ByteArray();
+    SimpleBLE::ByteArray data = peripheral_->read(serviceUUID,characteristicUUID);
+    return data;
 }
 
 BLEPeripheral::BLEPeripheral(){
@@ -91,6 +82,9 @@ void BLEPeripheral::callback_on_disconnected(){
 
 void BLEPeripheral::_bind_methods() {
   ClassDB::bind_method(D_METHOD("identifier"), &BLEPeripheral::identifier);
+  ClassDB::bind_method(D_METHOD("connect"), &BLEPeripheral::connect);
+  ClassDB::bind_method(D_METHOD("disconnect"), &BLEPeripheral::disconnect);
+  ClassDB::bind_method(D_METHOD("is_peripheral_connected"), &BLEPeripheral::is_peripheral_connected);
   ADD_SIGNAL(MethodInfo("connected"));
   ADD_SIGNAL(MethodInfo("disconnected"));
 }

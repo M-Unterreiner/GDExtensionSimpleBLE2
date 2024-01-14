@@ -22,12 +22,18 @@ func _on_ble_adapter_started_scan():
 	peripherals_.clear()
 	emit_signal("cleared_stored_peripherals")
 
+func connect_peripheral(peripheral : BLEPeripheral):
+	if (!selected_peripheral_.is_peripheral_connected()):
+		selected_peripheral_.connect()
+	else:
+		print_debug(peripheral.identifier(), " is already connected")
 
 func _on_item_list_item_selected(index):
-	var item_list : ItemList = get_node("../BLE GUI/VBoxContainer/ItemList")
+	var peripheral_list : ItemList = get_node("../BLE GUI/VBoxContainer/ListPeripherals")
 	for peripheral : BLEPeripheral in peripherals_:
 		var id = peripheral.get_instance_id()
-		if(peripheral.identifier() == item_list.get_item_text(index)):
+		if(peripheral.identifier() == peripheral_list.get_item_text(index)):
 			selected_peripheral_ = instance_from_id(id)
+			connect_peripheral(selected_peripheral_)
 			print_debug(selected_peripheral_.identifier() ," was selected.")
 

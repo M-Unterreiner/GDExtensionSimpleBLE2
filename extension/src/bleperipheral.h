@@ -37,7 +37,7 @@ protected:
 public:
     void connect();
     void connectService();
-    bool is_connected();
+    bool is_peripheral_connected();
     void disconnect();
     String identifier();
     SimpleBLE::ByteArray read();
