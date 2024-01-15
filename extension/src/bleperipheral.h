@@ -24,7 +24,7 @@ class BLEPeripheral : public Node{
 private:
     bool isConnected = false;
     std::shared_ptr<SimpleBLE::Peripheral> peripheral_;
-    std::vector<BLEService> services;
+    Array services;
 
     void setIsConnectedTo(bool connectionState);
     void callback_on_connected();

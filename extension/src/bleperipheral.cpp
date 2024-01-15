@@ -60,16 +60,17 @@ std::vector<SimpleBLE::Service> BLEPeripheral::getServices() {
 // Reads the peripheral
 SimpleBLE::ByteArray BLEPeripheral::read() {
 // TODO Is only using the first service
-    BLEService service = services.front();
-    SimpleBLE::BluetoothUUID serviceUUID = service.getUUIDs().first;
-    SimpleBLE::BluetoothUUID characteristicUUID = service.getUUIDs().second;
+    //BLEService service = services.front();
+    //SimpleBLE::BluetoothUUID serviceUUID = service.getUUIDs().first;
+    //SimpleBLE::BluetoothUUID characteristicUUID = service.getUUIDs().second;
 
-    SimpleBLE::ByteArray data = peripheral_->read(serviceUUID,characteristicUUID);
-    return data;
+    //SimpleBLE::ByteArray data = peripheral_->read(serviceUUID,characteristicUUID);
+    return SimpleBLE::ByteArray();
 }
 
-void addServiceToServices(SimpleBLE::Service& service, SimpleBLE::Characteristic& characteristic ){
-    BLEService newBLEService = BLEService(service, characteristic);
+void BLEPeripheral::addServiceToServices(SimpleBLE::Service& service, SimpleBLE::Characteristic& characteristic ){
+    BLEService* newBLEService = memnew(BLEService(service, characteristic));
+    services.append(newBLEService);
 }
 
 
