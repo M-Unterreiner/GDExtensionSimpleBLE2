@@ -1,5 +1,7 @@
 #include "bleservice.h"
 
+#include <godot_cpp/variant/utility_functions.hpp>
+
 
 BLEService::BLEService() {
     // Clean up your service and characteristic here
@@ -16,6 +18,7 @@ BLEService::~BLEService() {
 }
 
 void BLEService::setUUIDs() {
+  UtilityFunctions::print("UUIDs were set");
   String service = service_->uuid().c_str();
   uuids_.append(service);
   String characteristic = characteristic_->uuid().c_str();
