@@ -46,8 +46,8 @@ String BLEPeripheral::identifier(){
 
 // Emit services
 void BLEPeripheral::emit_services(){
-  emit_signal("send_services", services);
-  UtilityFunctions::print("Emitted services");
+  emit_signal("services_send", services);
+  // UtilityFunctions::print("Emitted services");
 }
 
 
@@ -118,5 +118,5 @@ void BLEPeripheral::_bind_methods() {
   ClassDB::bind_method(D_METHOD("emit_services"), &BLEPeripheral::emit_services);
   ADD_SIGNAL(MethodInfo("peripheral_is_connected", PropertyInfo(Variant::STRING, "identifier")));
   ADD_SIGNAL(MethodInfo("peripheral_is_disconnected", PropertyInfo(Variant::STRING, "identifier")));
-  ADD_SIGNAL(MethodInfo("send_services", PropertyInfo(Variant::ARRAY, "services")));
+  ADD_SIGNAL(MethodInfo("services_send", PropertyInfo(Variant::ARRAY, "services")));
 }
