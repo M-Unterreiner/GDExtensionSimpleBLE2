@@ -4,6 +4,7 @@
 #include <vector>
 #include <string>
 
+#include <godot_cpp/variant/utility_functions.hpp>
 
 BLEPeripheral::~BLEPeripheral(){
 
@@ -78,7 +79,8 @@ void BLEPeripheral::callback_on_connected(){
 
 // Callback function which is called when peripheral disconnects
 void BLEPeripheral::callback_on_disconnected(){
-    emit_signal("peripheal_is_disconnected", identifier());
+    UtilityFunctions::print("Device was disconnected");
+    emit_signal("peripheral_is_disconnected", identifier());
 }
 
 void BLEPeripheral::_bind_methods() {
