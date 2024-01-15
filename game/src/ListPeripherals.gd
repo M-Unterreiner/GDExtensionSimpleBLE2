@@ -15,7 +15,7 @@ func _on_ble_peripheral_manager_new_peripheral_stored():
 
 
 func connect_peripheral_to_signals(peripheral : BLEPeripheral):
-	print_debug("Connect ", peripheral.identifier(), " to signals.")
+	print_debug(peripheral.identifier(), " is connected to signals.")
 	#if (peripheral.is_connected("peripheral_is_connected", _on_peripheral_is_connected)):
 	peripheral.connect("peripheral_is_connected", _on_peripheral_is_connected)
 	#if (peripheral.is_connected("peripheral_is_disconnected", _on_peripheral_is_disconnected)):
@@ -27,13 +27,13 @@ func _on_ble_peripheral_manager_cleared_stored_peripherals():
 
 
 func _on_peripheral_is_connected(identifier : String):
-	print_debug(identifier, " connected.")
+	print_debug(identifier, " is shown as connected.")
 	change_color_of_itemtext_to(identifier, Color.DARK_GREEN)
 	
 
 
 func _on_peripheral_is_disconnected(identifier : String):
-	print_debug(identifier, " disconnected.")
+	print_debug(identifier, " is shown as disconnected.")
 	change_color_of_itemtext_to(identifier, Color.DARK_RED)
 
 
