@@ -20,13 +20,16 @@ BLEService::~BLEService() {
     // Clean up your service and characteristic here
 }
 
-std::pair<SimpleBLE::BluetoothUUID, SimpleBLE::BluetoothUUID> BLEService::getUUIDs() {
-    return uuids_;
+void BLEService::setUUIDs() {
+  String service = service_->uuid().c_str();
+  //uuids_.append(service);
+  String characteristic = characteristic_->uuid().c_str();
+  // uuids_.append(service);
 }
 
+
 Array BLEService::getUUIDsInArray() {
-    Array uuids = Array();
-    return uuids;
+  return uuids_;
 }
 
 bool BLEService::can_notify() {
@@ -38,7 +41,8 @@ bool BLEService::can_read() {
 }
 
 void BLEService::_bind_methods() {
-  ClassDB::bind_method(D_METHOD("getUUIDsInArray"), &BLEService::getUUIDsInArray);
+  //ClassDB::bind_method(D_METHOD("get_uuids"), &BLEService::getUUIDsInArray);
+  ClassDB::bind_method(D_METHOD("get_uuids"), &BLEService::getUUIDsInArray);
   ClassDB::bind_method(D_METHOD("can_notiy"), &BLEService::can_notify);
   ClassDB::bind_method(D_METHOD("can_read"), &BLEService::can_read);
 }

@@ -4,6 +4,9 @@ extends Node
 var peripherals_ : Array = []
 var selected_peripheral_ : BLEPeripheral = null
 
+@onready
+var list_of_services : ItemList = $ListServices
+
 signal new_peripheral_stored
 signal cleared_stored_peripherals
 
@@ -38,4 +41,5 @@ func _on_item_list_item_selected(index):
 			selected_peripheral_ = instance_from_id(id)
 			print_debug(selected_peripheral_.identifier() ," was selected.")
 			connect_peripheral(selected_peripheral_)
+			
 			selected_peripheral_.emit_services()

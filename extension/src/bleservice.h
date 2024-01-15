@@ -21,13 +21,12 @@ private:
     SimpleBLE::Service* service_;
     SimpleBLE::BluetoothUUID serviceUUID;
     SimpleBLE::BluetoothUUID characteristicUUID;
-    std::pair<SimpleBLE::BluetoothUUID, SimpleBLE::BluetoothUUID> uuids_;
-
+    Array uuids_ = Array();
+    void setUUIDs();
 protected:
   static void _bind_methods();
 
 public:
-    std::pair<SimpleBLE::BluetoothUUID, SimpleBLE::BluetoothUUID> getUUIDs();
     Array getUUIDsInArray();
     bool can_notify();
     bool can_read();

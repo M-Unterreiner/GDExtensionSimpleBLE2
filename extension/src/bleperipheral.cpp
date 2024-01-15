@@ -46,7 +46,8 @@ String BLEPeripheral::identifier(){
 
 // Emit services
 void BLEPeripheral::emit_services(){
-
+  emit_signal("send_services", services);
+  UtilityFunctions::print("Emitted services");
 }
 
 

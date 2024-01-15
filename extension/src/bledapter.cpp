@@ -106,7 +106,7 @@ void BLEAdapter::callbackOnStoppedScan(){
     for (SimpleBLE::Peripheral peripheral : peripherals_){
         BLEPeripheral* newPeripheral = memnew(BLEPeripheral(peripheral));
         emit_signal("found_new_peripheral", newPeripheral->get_instance_id());
-        UtilityFunctions::print(newPeripheral->get_instance_id());
+        //UtilityFunctions::print(newPeripheral->get_instance_id());
       }
   }
 }

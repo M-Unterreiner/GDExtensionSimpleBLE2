@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://dgm4ah3j8jxke"]
+[gd_scene load_steps=9 format=3 uid="uid://dgm4ah3j8jxke"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_ptcg0"]
 [ext_resource type="Script" path="res://src/BLEManager.gd" id="2_8gx58"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://src/BLEAdapter.gd" id="3_x1bhm"]
 [ext_resource type="Script" path="res://src/ble_peripheral_manager.gd" id="4_e1iat"]
 [ext_resource type="Script" path="res://src/ItemList.gd" id="5_8xm7n"]
+[ext_resource type="Script" path="res://src/ListServices.gd" id="7_4v5id"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_yhttb"]
 
@@ -62,13 +63,15 @@ item_count = 1
 item_0/text = ""
 script = ExtResource("5_8xm7n")
 
-[node name="ItemList" type="ItemList" parent="BLE GUI"]
+[node name="ListServices" type="ItemList" parent="BLE GUI"]
+unique_name_in_owner = true
 material = SubResource("CanvasItemMaterial_yhttb")
 layout_mode = 0
 offset_left = 256.0
 offset_top = 32.0
 offset_right = 512.0
 offset_bottom = 192.0
+script = ExtResource("7_4v5id")
 
 [connection signal="BLEManager_log" from="BLEManager" to="BLEManager" method="_on_ble_manager_log"]
 [connection signal="found_new_peripheral" from="BLEAdapter" to="ble_peripheral_manager" method="_on_ble_adapter_found_new_peripheral"]
