@@ -68,7 +68,7 @@ SimpleBLE::ByteArray BLEPeripheral::read() {
 }
 
 void BLEPeripheral::addServiceToServices(SimpleBLE::Service& service, SimpleBLE::Characteristic& characteristic ){
-    BLEService* newBLEService = memnew(BLEService(service, characteristic));
+    BLEService* newBLEService = memnew(BLEService(&service, &characteristic));
     services.append(newBLEService);
 }
 

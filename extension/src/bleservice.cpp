@@ -9,6 +9,13 @@ BLEService::BLEService(SimpleBLE::BluetoothUUID serviceUUID, SimpleBLE::Bluetoot
     uuids_ = std::make_pair(serviceUUID, characteristicUUID);
 }
 
+
+BLEService::BLEService(SimpleBLE::Service* service, SimpleBLE::Characteristic* characteristic){
+  characteristic_ = characteristic;
+  service_ = service;
+
+}
+
 BLEService::~BLEService() {
     // Clean up your service and characteristic here
 }
