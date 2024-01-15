@@ -5,7 +5,7 @@ var peripherals_ : Array = []
 var selected_peripheral_ : BLEPeripheral = null
 
 @onready
-var list_of_services : ItemList = $ListServices
+var list_of_services : ItemList = get_node("../BLEUI/VBoxContainer/ListPeripherals")
 
 signal new_peripheral_stored
 signal cleared_stored_peripherals
@@ -34,12 +34,16 @@ func connect_peripheral(peripheral : BLEPeripheral):
 		
 
 func _on_item_list_item_selected(index):
-	var peripheral_list : ItemList = get_node("../BLE GUI/VBoxContainer/ListPeripherals")
+	var peripheral_list : ItemList = get_node("../BLEUI/VBoxContainer/ListPeripherals")
 	for peripheral : BLEPeripheral in peripherals_:
 		var id = peripheral.get_instance_id()
 		if(peripheral.identifier() == peripheral_list.get_item_text(index)):
-			selected_peripheral_ = instance_from_id(id)
-			print_debug(selected_peripheral_.identifier() ," was selected.")
-			connect_peripheral(selected_peripheral_)
-			
-			selected_peripheral_.emit_services()
+			select_peripheral(id)
+
+
+func select_peripheral(id : int):
+	selected_peripheral_ = instance_from_id(id)
+	print_debug(selected_peripheral_.identifier() ," was selected.")
+	connect_peripheral(selected_peripheral_)
+	list_of_services.connect_peripheral_to_signals(selected_peripheral_)
+	selected_peripheral_.emit_services()
