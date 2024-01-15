@@ -17,9 +17,9 @@ BLEService::~BLEService() {
 
 void BLEService::setUUIDs() {
   String service = service_->uuid().c_str();
-  //uuids_.append(service);
+  uuids_.append(service);
   String characteristic = characteristic_->uuid().c_str();
-  // uuids_.append(service);
+  uuids_.append(characteristic);
 }
 
 
