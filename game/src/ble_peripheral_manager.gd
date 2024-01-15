@@ -5,7 +5,7 @@ var peripherals_ : Array = []
 var selected_peripheral_ : BLEPeripheral = null
 
 @onready
-var list_of_services : ItemList = get_node("../BLEUI/VBoxContainer/ListPeripherals")
+var list_of_services : ItemList = get_node("../BLEUI/ListServices")
 
 signal new_peripheral_stored
 signal cleared_stored_peripherals
