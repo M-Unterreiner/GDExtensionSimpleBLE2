@@ -40,6 +40,7 @@ public:
     bool is_peripheral_connected();
     void disconnect();
     String identifier();
+    void emit_services();
     SimpleBLE::ByteArray read();
 
     BLEPeripheral();

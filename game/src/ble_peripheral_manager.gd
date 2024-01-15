@@ -38,3 +38,4 @@ func _on_item_list_item_selected(index):
 			selected_peripheral_ = instance_from_id(id)
 			print_debug(selected_peripheral_.identifier() ," was selected.")
 			connect_peripheral(selected_peripheral_)
+			selected_peripheral_.emit_services()

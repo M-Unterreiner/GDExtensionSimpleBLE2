@@ -43,6 +43,12 @@ String BLEPeripheral::identifier(){
     return peripheral_->identifier().c_str();
 }
 
+// Emit services
+void BLEPeripheral::emit_services(){
+
+}
+
+
 // TODO Correct implementation
 // Gets all services from SimpleBLE of the peripheral
 std::vector<SimpleBLE::Service> BLEPeripheral::getServices() {
@@ -88,6 +94,8 @@ void BLEPeripheral::_bind_methods() {
   ClassDB::bind_method(D_METHOD("connect_peripheral"), &BLEPeripheral::connect);
   ClassDB::bind_method(D_METHOD("disconnect_peripheral"), &BLEPeripheral::disconnect);
   ClassDB::bind_method(D_METHOD("is_peripheral_connected"), &BLEPeripheral::is_peripheral_connected);
+  ClassDB::bind_method(D_METHOD("emit_services"), &BLEPeripheral::emit_services);
   ADD_SIGNAL(MethodInfo("peripheral_is_connected", PropertyInfo(Variant::STRING, "identifier")));
   ADD_SIGNAL(MethodInfo("peripheral_is_disconnected", PropertyInfo(Variant::STRING, "identifier")));
+  ADD_SIGNAL(MethodInfo("send_services", PropertyInfo(Variant::ARRAY, "services")));
 }
