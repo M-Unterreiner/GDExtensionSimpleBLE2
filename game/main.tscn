@@ -64,7 +64,6 @@ item_0/text = ""
 script = ExtResource("5_8xm7n")
 
 [node name="ListServices" type="ItemList" parent="BLEUI"]
-unique_name_in_owner = true
 material = SubResource("CanvasItemMaterial_yhttb")
 layout_mode = 0
 offset_left = 256.0
