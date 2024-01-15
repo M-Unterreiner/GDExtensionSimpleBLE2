@@ -30,6 +30,7 @@ private:
     void callback_on_connected();
     void callback_on_disconnected();
     void initServices();
+    void addServiceToServices(SimpleBLE::Service& service, SimpleBLE::Characteristic& characteristic);
     std::vector<SimpleBLE::Service> getServices();
 
 protected:

@@ -68,19 +68,23 @@ SimpleBLE::ByteArray BLEPeripheral::read() {
     return data;
 }
 
-void addServiceToServices( ){
-    BLEService newBLEService = BLEService();
+void addServiceToServices(SimpleBLE::Service& service, SimpleBLE::Characteristic& characteristic ){
+    BLEService newBLEService = BLEService(service, characteristic);
 }
 
 
 void BLEPeripheral::initServices(){
   std::vector<SimpleBLE::Service> services = getServices();
   std::vector<SimpleBLE::Characteristic> characteristics;
-  for (SimpleBLE::Service service : services) {
+  for (SimpleBLE::Service& service : services) {
     characteristics = service.characteristics();
-
+    for (SimpleBLE::Characteristic& characteristic : characteristics) {
+      addServiceToServices(service, characteristic);
+    }
   }
 }
+
+
 
 BLEPeripheral::BLEPeripheral(){
   initServices();

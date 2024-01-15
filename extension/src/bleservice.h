@@ -34,5 +34,6 @@ public:
 
     BLEService();
     BLEService(SimpleBLE::BluetoothUUID serviceUUID, SimpleBLE::BluetoothUUID characteristicUUID);
+    BLEService(SimpleBLE::Service service, SimpleBLE::Characteristic characteristic);
     ~BLEService();
 };
