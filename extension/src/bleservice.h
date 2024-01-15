@@ -19,8 +19,6 @@ class BLEService : public Node{
 private:
     SimpleBLE::Characteristic* characteristic_;
     SimpleBLE::Service* service_;
-    SimpleBLE::BluetoothUUID serviceUUID;
-    SimpleBLE::BluetoothUUID characteristicUUID;
     Array uuids_ = Array();
     void setUUIDs();
 protected:
@@ -32,7 +30,6 @@ public:
     bool can_read();
 
     BLEService();
-    BLEService(SimpleBLE::BluetoothUUID serviceUUID, SimpleBLE::BluetoothUUID characteristicUUID);
     BLEService(SimpleBLE::Service* service, SimpleBLE::Characteristic* characteristic);
     ~BLEService();
 };
