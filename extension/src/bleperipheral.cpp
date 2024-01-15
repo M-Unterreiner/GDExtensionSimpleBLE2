@@ -1,4 +1,5 @@
 #include "bleperipheral.h"
+#include "bleservice.h"
 #include <memory>
 #include <utility>
 #include <vector>
@@ -67,9 +68,18 @@ SimpleBLE::ByteArray BLEPeripheral::read() {
     return data;
 }
 
+void addServiceToServices( ){
+    BLEService newBLEService = BLEService();
+}
+
 
 void BLEPeripheral::initServices(){
   std::vector<SimpleBLE::Service> services = getServices();
+  std::vector<SimpleBLE::Characteristic> characteristics;
+  for (SimpleBLE::Service service : services) {
+    characteristics = service.characteristics();
+
+  }
 }
 
 BLEPeripheral::BLEPeripheral(){
