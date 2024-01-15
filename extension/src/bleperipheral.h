@@ -29,6 +29,7 @@ private:
     void setIsConnectedTo(bool connectionState);
     void callback_on_connected();
     void callback_on_disconnected();
+    void initServices();
     std::vector<SimpleBLE::Service> getServices();
 
 protected:

@@ -52,7 +52,7 @@ void BLEPeripheral::emit_services(){
 // TODO Correct implementation
 // Gets all services from SimpleBLE of the peripheral
 std::vector<SimpleBLE::Service> BLEPeripheral::getServices() {
-    return peripheral_->services()
+    return peripheral_->services();
 }
 
 // TODO Not implemented for several services.
@@ -67,7 +67,13 @@ SimpleBLE::ByteArray BLEPeripheral::read() {
     return data;
 }
 
+
+void BLEPeripheral::initServices(){
+  std::vector<SimpleBLE::Service> services = getServices();
+}
+
 BLEPeripheral::BLEPeripheral(){
+  initServices();
 }
 
 BLEPeripheral::BLEPeripheral(SimpleBLE::Peripheral& newPeripheral){
