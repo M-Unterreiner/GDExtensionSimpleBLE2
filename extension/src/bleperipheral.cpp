@@ -72,19 +72,20 @@ BLEPeripheral::BLEPeripheral(SimpleBLE::Peripheral& newPeripheral){
 
 // Callback function which is called when peripheral is connected
 void BLEPeripheral::callback_on_connected(){
-    emit_signal("connected");
+
+    emit_signal("peripheral_is_connected", identifier());
 }
 
 // Callback function which is called when peripheral disconnects
 void BLEPeripheral::callback_on_disconnected(){
-    emit_signal("disconnected");
+    emit_signal("peripheal_is_disconnected", identifier());
 }
 
 void BLEPeripheral::_bind_methods() {
   ClassDB::bind_method(D_METHOD("identifier"), &BLEPeripheral::identifier);
-  ClassDB::bind_method(D_METHOD("connect"), &BLEPeripheral::connect);
-  ClassDB::bind_method(D_METHOD("disconnect"), &BLEPeripheral::disconnect);
+  ClassDB::bind_method(D_METHOD("connect_peripheral"), &BLEPeripheral::connect);
+  ClassDB::bind_method(D_METHOD("disconnect_peripheral"), &BLEPeripheral::disconnect);
   ClassDB::bind_method(D_METHOD("is_peripheral_connected"), &BLEPeripheral::is_peripheral_connected);
-  ADD_SIGNAL(MethodInfo("connected"));
-  ADD_SIGNAL(MethodInfo("disconnected"));
+  ADD_SIGNAL(MethodInfo("peripheral_is_connected", PropertyInfo(Variant::STRING, "identifier")));
+  ADD_SIGNAL(MethodInfo("peripheral_is_disconnected", PropertyInfo(Variant::STRING, "identifier")));
 }

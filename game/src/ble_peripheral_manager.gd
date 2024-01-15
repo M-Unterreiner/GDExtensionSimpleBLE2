@@ -24,7 +24,7 @@ func _on_ble_adapter_started_scan():
 
 func connect_peripheral(peripheral : BLEPeripheral):
 	if (!selected_peripheral_.is_peripheral_connected()):
-		selected_peripheral_.connect()
+		selected_peripheral_.connect_peripheral()
 	else:
 		print_debug(peripheral.identifier(), " is already connected")
 
