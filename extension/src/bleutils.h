@@ -8,7 +8,7 @@
 using namespace godot;
 
 class BLEUtils {
-
-  PackedByteArray stringToByteArray(const SimpleBLE::ByteArray &p_bytes);
+public:
+  static PackedByteArray stringToByteArray(const SimpleBLE::ByteArray &p_bytes);
 };
 #endif // GDBLEUTILS_CLASS_H

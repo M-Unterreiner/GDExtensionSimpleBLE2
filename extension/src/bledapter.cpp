@@ -1,56 +1,66 @@
-include "bleadapter.h
+#include "bleadapter.h"
 #include <algorithm>
 
+#include "bleperipheral.h"
 #include "gdextensionlogger.h"
+
+#include <godot_cpp/variant/utility_functions.hpp>
 #include <simpleble/SimpleBLE.h>
 
-    BLEAdapter::BLEAdapter() {
-  GDExtensionlogger::log("Adapter instantiated");
-  setAdapter();
-  setCallbacks();
+  BLEAdapter::BLEAdapter() {
+    // GDExtensionlogger::log("Adapter instantiated");
+    // setAdapter();
+    // setCallbacks();
 }
 
 BLEAdapter::~BLEAdapter() {}
 
+
+void BLEAdapter::initAdapter(){
+    GDExtensionlogger::log("Adapter instantiated");
+    setAdapter();
+    setCallbacks();
+}
+
+
 // Converts SimpleBLE::Adapter to Godot::Array with following structure
 // [[String identifier, String Address, SimpleBLE::Adapter adapter]]
-Array *BLEAdapter::convertAdapterToArray(SimpleBLE::Adapter adapter) {
+Array BLEAdapter::convertAdapterToArray(SimpleBLE::Adapter adapter) {
   std::string identifier = adapter.identifier();
   std::string address = adapter.address();
 
-  Array *newAdapter = memnew(Array);
+  Array newAdapter = Array();
 
-  newAdapter->push_front(identifier.c_str());
-  newAdapter->push_back(address.c_str());
+  newAdapter.push_front(identifier.c_str());
+  newAdapter.push_back(address.c_str());
 
   return newAdapter;
 }
 
 // Converts a vector of SimpleBLE::Adapter to Godot::Array
-Array *BLEAdapter::convertVectorOfAdaptersToArray(
-    std::vector<SimpleBLE::Adapter> adapters) {
-  Array *adapterList = memnew(Array);
+Array BLEAdapter::convertVectorOfAdaptersToArray(std::vector<SimpleBLE::Adapter> adapters) {
+  Array adapterList = Array();
 
   for (SimpleBLE::Adapter adapter : adapters) {
-    Array *convertedAdapter = convertAdapterToArray(adapter);
-    adapterList->push_back(convertedAdapter);
+    Array convertedAdapter = convertAdapterToArray(adapter);
+    adapterList.push_back(convertedAdapter);
   }
 
   return adapterList;
 }
 
 // SimpleBLE stores adapters in a vector. This function gets from SimpleBLE
-// the adapters and returns tehm in a Godot::Array
+// the adapters and returns them in a Godot::Array
 // Returns an Array with following structure
 // [[identifier, address],[identifier, address]]
-Array *BLEAdapter::getAdapterList() {
+Array BLEAdapter::getAdapterList() {
   adapters = SimpleBLE::Adapter::get_adapters();
 
   if (!adapters.empty()) {
     return convertVectorOfAdaptersToArray(adapters);
   }
 
-  Array *emptyArray = memnew(Array);
+  Array emptyArray = Array();
   return emptyArray;
 }
 
@@ -71,7 +81,9 @@ bool BLEAdapter::setAdapter() {
 }
 
 // Scans for peripherals in miniseconds
-void BLEAdapter::scanPeripherals(int ms) { actualAdapter.scan_for(ms); }
+void BLEAdapter::start_scan(int ms) {
+  actualAdapter.scan_for(ms);
+}
 
 // Retrieve the scanned peripherals within a vector.
 std::vector<SimpleBLE::Peripheral> BLEAdapter::getScanResults() {
@@ -80,21 +92,57 @@ std::vector<SimpleBLE::Peripheral> BLEAdapter::getScanResults() {
 
 // Retrieve the paired peripherals within a vector
 std::vector<SimpleBLE::Peripheral> BLEAdapter::getPairedPeripherals() {
-  GDExtensionlogger::log("GetPairedPeripherals");
+  GDExtensionlogger::log("BLEAdapters GetPairedPeripherals");
   return actualAdapter.get_paired_peripherals();
 };
 
+void BLEAdapter::callbackOnStartedScan(){
+  GDExtensionlogger::log("Callback of BLEAdapter that scan started.");
+  peripherals_.clear();
+  emit_signal("started_scan");
+}
+
+void BLEAdapter::callbackOnScanFound(SimpleBLE::Peripheral peripheral){
+  peripherals_.push_back(peripheral);
+  // UtilityFunctions::print("Callback of BLEAdapter on scan found: ", peripheral.identifier(), " found");
+}
+
+
+void BLEAdapter::callbackOnStoppedScan(){
+  GDExtensionlogger::log("Callback of BLEAdapters on scan stopped.");
+  if(!peripherals_.empty()){
+    for (SimpleBLE::Peripheral peripheral : peripherals_){
+        BLEPeripheral* newPeripheral = memnew(BLEPeripheral(peripheral));
+        emit_signal("found_new_peripheral", newPeripheral->get_instance_id());
+        //UtilityFunctions::print(newPeripheral->get_instance_id());
+      }
+  }
+}
+
 // Set callbacks when scan started, scan stopped and on scan found.
 void BLEAdapter::setCallbacks() {
-  GDExtensionlogger::log("Set callbacks.");
+  GDExtensionlogger::log("Set callbacks of BLEAdapters.");
   actualAdapter.set_callback_on_scan_start(
-      [&]() { GDExtensionlogger::log("Scan started."); });
+      [&]() { callbackOnStartedScan(); });
 
   actualAdapter.set_callback_on_scan_stop(
-      [&]() { GDExtensionlogger::log("Scan stopped."); });
+      [&]() { callbackOnStoppedScan(); });
 
   actualAdapter.set_callback_on_scan_found(
       [&](SimpleBLE::Peripheral peripheral) {
-        GDExtensionlogger::log("Peripheral found");
+       callbackOnScanFound(peripheral);
       });
 };
+
+
+void BLEAdapter::_bind_methods() {
+  ClassDB::bind_method(D_METHOD("getAdapterList"), &BLEAdapter::getAdapterList);
+  ClassDB::bind_method(D_METHOD("start_scan", "ms"), &BLEAdapter::start_scan);
+  ClassDB::bind_method(D_METHOD("init_adapter"), &BLEAdapter::initAdapter);
+  ADD_SIGNAL(
+      MethodInfo("updateAdapters", PropertyInfo(Variant::STRING, "Updated Adapters")));
+  ADD_SIGNAL(MethodInfo("started_scan"));
+  ADD_SIGNAL(MethodInfo("stopped_scan"));
+  ADD_SIGNAL(MethodInfo("found_new_peripheral", PropertyInfo(Variant::INT, "id")));
+  //ADD_SIGNAL(MethodInfo("found_new_peripheral", PropertyInfo(BLEPeripheral, "new_peripheral")));
+}

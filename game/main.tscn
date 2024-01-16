@@ -1,6 +1,117 @@
-[gd_scene load_steps=2 format=3 uid="uid://dgm4ah3j8jxke"]
+[gd_scene load_steps=9 format=3 uid="uid://dgm4ah3j8jxke"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_ptcg0"]
+[ext_resource type="Script" path="res://src/BLEManager.gd" id="2_8gx58"]
+[ext_resource type="Script" path="res://src/UIDUMMY.gd" id="3_t3fh6"]
+[ext_resource type="Script" path="res://src/BLEAdapter.gd" id="3_x1bhm"]
+[ext_resource type="Script" path="res://src/ble_peripheral_manager.gd" id="4_e1iat"]
+[ext_resource type="Script" path="res://src/ListPeripherals.gd" id="5_8xm7n"]
+[ext_resource type="Script" path="res://src/ListServices.gd" id="7_4v5id"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_yhttb"]
 
 [node name="Main" type="Node"]
 script = ExtResource("1_ptcg0")
+metadata/_edit_horizontal_guides_ = [-73.0, 35.0]
+metadata/_edit_vertical_guides_ = [221.0, 245.0]
+
+[node name="BLEManager" type="BLEManager" parent="."]
+script = ExtResource("2_8gx58")
+
+[node name="BLEAdapter" type="BLEAdapter" parent="."]
+script = ExtResource("3_x1bhm")
+
+[node name="ble_peripheral_manager" type="Node" parent="."]
+script = ExtResource("4_e1iat")
+
+[node name="BLEUI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 900.0
+offset_bottom = 216.0
+script = ExtResource("3_t3fh6")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BLEUI"]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 0
+offset_right = 200.0
+offset_bottom = 200.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BLEUI/VBoxContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+
+[node name="btn_start_scan" type="Button" parent="BLEUI/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Start scan"
+
+[node name="SpinBox" type="SpinBox" parent="BLEUI/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+tooltip_text = "Milliseconds to scan"
+min_value = 500.0
+max_value = 10000.0
+step = 500.0
+value = 2500.0
+update_on_text_changed = true
+suffix = "ms"
+
+[node name="ListPeripherals" type="ItemList" parent="BLEUI/VBoxContainer"]
+clip_contents = false
+layout_mode = 2
+auto_height = true
+item_count = 1
+item_0/text = ""
+script = ExtResource("5_8xm7n")
+
+[node name="Container" type="Control" parent="BLEUI"]
+anchors_preset = 0
+offset_left = 245.0
+offset_right = 900.0
+offset_bottom = 35.0
+
+[node name="ButtonRead" type="Button" parent="BLEUI/Container"]
+layout_mode = 0
+offset_right = 182.0
+offset_bottom = 34.0
+text = "Read service"
+
+[node name="ButtonUnsubscribe" type="Button" parent="BLEUI/Container"]
+layout_mode = 0
+offset_left = 423.0
+offset_right = 642.0
+offset_bottom = 34.0
+text = "Unsubscribe service"
+
+[node name="ButtonSubscribe" type="Button" parent="BLEUI/Container"]
+offset_left = 214.0
+offset_right = 396.0
+offset_bottom = 34.0
+text = "Subscribe service"
+
+[node name="ListServices" type="ItemList" parent="BLEUI"]
+material = SubResource("CanvasItemMaterial_yhttb")
+layout_mode = 0
+offset_left = 245.0
+offset_top = 35.0
+offset_right = 887.0
+offset_bottom = 195.0
+script = ExtResource("7_4v5id")
+
+[connection signal="BLEManager_log" from="BLEManager" to="BLEManager" method="_on_ble_manager_log"]
+[connection signal="found_new_peripheral" from="BLEAdapter" to="ble_peripheral_manager" method="_on_ble_adapter_found_new_peripheral"]
+[connection signal="found_new_peripheral" from="BLEAdapter" to="BLEUI/VBoxContainer/ListPeripherals" method="_on_ble_adapter_found_new_peripheral"]
+[connection signal="started_scan" from="BLEAdapter" to="ble_peripheral_manager" method="_on_ble_adapter_started_scan"]
+[connection signal="started_scan" from="BLEAdapter" to="BLEUI/VBoxContainer/ListPeripherals" method="_on_ble_adapter_started_scan"]
+[connection signal="updateAdapters" from="BLEAdapter" to="BLEUI" method="_on_ble_adapter_update_adapters"]
+[connection signal="cleared_stored_peripherals" from="ble_peripheral_manager" to="BLEUI/VBoxContainer/ListPeripherals" method="_on_ble_peripheral_manager_cleared_stored_peripherals"]
+[connection signal="new_peripheral_stored" from="ble_peripheral_manager" to="BLEUI/VBoxContainer/ListPeripherals" method="_on_ble_peripheral_manager_new_peripheral_stored"]
+[connection signal="updated_peripheral_services" from="ble_peripheral_manager" to="BLEUI/ListServices" method="_on_ble_peripheral_manager_updated_peripheral_services"]
+[connection signal="button_down" from="BLEUI/VBoxContainer/HBoxContainer/btn_start_scan" to="BLEAdapter" method="_on_btn_start_scan_button_down"]
+[connection signal="button_down" from="BLEUI/VBoxContainer/HBoxContainer/btn_start_scan" to="BLEUI/ListServices" method="_on_btn_start_scan_button_down"]
+[connection signal="value_changed" from="BLEUI/VBoxContainer/HBoxContainer/SpinBox" to="BLEAdapter" method="_on_spin_box_value_changed"]
+[connection signal="item_selected" from="BLEUI/VBoxContainer/ListPeripherals" to="ble_peripheral_manager" method="_on_item_list_item_selected"]
+[connection signal="button_up" from="BLEUI/Container/ButtonRead" to="ble_peripheral_manager" method="_on_button_connect_button_up"]
+[connection signal="button_down" from="BLEUI/Container/ButtonUnsubscribe" to="ble_peripheral_manager" method="_on_button_disconnect_button_down"]
+[connection signal="button_up" from="BLEUI/Container/ButtonSubscribe" to="ble_peripheral_manager" method="_on_button_connect_button_up"]
+[connection signal="item_selected" from="BLEUI/ListServices" to="ble_peripheral_manager" method="_on_list_services_item_selected"]

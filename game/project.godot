@@ -16,6 +16,11 @@ run/main_scene="res://main.tscn"
 config/features=PackedStringArray("4.2")
 config/icon="res://icon.png"
 
+[display]
+
+window/size/viewport_width=900
+window/size/viewport_height=300
+
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/gdextensionsimpleble/plugin.cfg")
