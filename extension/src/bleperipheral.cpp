@@ -83,6 +83,29 @@ void BLEPeripheral::read(String serviceUUID , String characteristicUUID) {
 }
 
 
+void BLEPeripheral::subscribe(String serviceUUID , String characteristicUUID){
+    std::string service = serviceUUID.utf8().get_data();
+    std::string characteristic = characteristicUUID.utf8().get_data();
+    peripheral_->notify(service, characteristic, [&](SimpleBLE::ByteArray bytes) {callbackOnDataReceived(bytes);});
+}
+
+
+void BLEPeripheral::callbackOnDataReceived(SimpleBLE::ByteArray bytes){
+    String data = bytes.c_str();
+    emit_signal("received_data", data);
+}
+
+
+void BLEPeripheral::unsubscribe(String serviceUUID , String characteristicUUID){
+    std::string service = serviceUUID.utf8().get_data();
+    std::string characteristic = characteristicUUID.utf8().get_data();
+    // std::pair<std::string, std::string> service = std::make_pair(service, characteristic);
+    // peripheral_.push_back(service);
+
+    peripheral_->unsubscribe(service,characteristic);
+    emit_signal("received_data", "Unsubscribed service");
+}
+
 void BLEPeripheral::addServiceToServices(SimpleBLE::Service& service, SimpleBLE::Characteristic& characteristic ){
     BLEService* newBLEService = memnew(BLEService(service, characteristic));
     services.append(newBLEService);
@@ -101,6 +124,7 @@ void BLEPeripheral::initServices(){
     }
   }
 }
+
 
 
 
@@ -135,6 +159,8 @@ void BLEPeripheral::_bind_methods() {
   ClassDB::bind_method(D_METHOD("emit_services"), &BLEPeripheral::emit_services);
   ClassDB::bind_method(D_METHOD("init_services"), &BLEPeripheral::initServices);
   ClassDB::bind_method(D_METHOD("read", "serviceUUID", "characteristicUUID"), &BLEPeripheral::read);
+  ClassDB::bind_method(D_METHOD("subscribe", "serviceUUID", "characteristicUUID"), &BLEPeripheral::subscribe);
+  ClassDB::bind_method(D_METHOD("unsubscribe", "serviceUUID", "characteristicUUID"), &BLEPeripheral::unsubscribe);
   ADD_SIGNAL(MethodInfo("peripheral_is_connected", PropertyInfo(Variant::STRING, "identifier")));
   ADD_SIGNAL(MethodInfo("peripheral_is_disconnected", PropertyInfo(Variant::STRING, "identifier")));
   ADD_SIGNAL(MethodInfo("services_send", PropertyInfo(Variant::ARRAY, "services")));

@@ -23,6 +23,7 @@ class BLEPeripheral : public Node{
 
 private:
     bool isConnected = false;
+    // std::vector<std::pair<std::string, std::string>> subscribedServices_;
     std::shared_ptr<SimpleBLE::Peripheral> peripheral_;
     Array services;
 
@@ -45,6 +46,9 @@ public:
     void initServices();
     void read(String serviceUUID, String characteristicUUID);
     // void read(String serviceUUID);
+    void subscribe(String serviceUUID , String characteristicUUID);
+    void unsubscribe(String serviceUUID , String characteristicUUID);
+    void callbackOnDataReceived(SimpleBLE::ByteArray bytes);
 
     BLEPeripheral();
     BLEPeripheral(SimpleBLE::Peripheral& newPeripheral);
