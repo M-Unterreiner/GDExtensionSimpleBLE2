@@ -9,6 +9,10 @@ var selected_service_ : BLEService = null
 @onready
 var list_of_services : ItemList = get_node("../BLEUI/ListServices")
 
+func _process(delta):
+	for peripheral in peripherals_:
+		peripheral.get_notifications()
+
 signal new_peripheral_stored
 signal cleared_stored_peripherals
 signal updated_peripheral_services(selected_peripehral_services : Array)
@@ -79,7 +83,7 @@ func _on_received_data(data : String):
 
 func _on_button_subscribe_button_up():
 	var uuids = selected_service_.get_uuids()
-	selected_peripheral_.read(uuids[0],uuids[1])
+	selected_peripheral_.subscribe(uuids[0],uuids[1])
 
 
 func _on_button_unsubscribe_button_down():

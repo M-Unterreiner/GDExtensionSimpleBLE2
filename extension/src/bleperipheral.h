@@ -23,7 +23,7 @@ class BLEPeripheral : public Node{
 
 private:
     bool isConnected = false;
-    // std::vector<std::pair<std::string, std::string>> subscribedServices_;
+    std::vector<std::pair<std::string, std::string>> subscribedServices_;
     std::shared_ptr<SimpleBLE::Peripheral> peripheral_;
     Array services;
 
@@ -32,6 +32,7 @@ private:
     void callback_on_disconnected();
     void addServiceToServices(SimpleBLE::Service& service, SimpleBLE::Characteristic& characteristic);
     std::vector<SimpleBLE::Service> getServices();
+    void getNotifications();
 
 protected:
   static void _bind_methods();
