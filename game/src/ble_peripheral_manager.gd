@@ -9,9 +9,6 @@ var selected_service_ : BLEService = null
 @onready
 var list_of_services : ItemList = get_node("../BLEUI/ListServices")
 
-func _process(delta):
-	for peripheral in peripherals_:
-		peripheral.get_notifications()
 
 signal new_peripheral_stored
 signal cleared_stored_peripherals

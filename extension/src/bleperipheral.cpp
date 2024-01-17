@@ -88,7 +88,8 @@ void BLEPeripheral::subscribe(String serviceUUID , String characteristicUUID){
     std::string characteristic = characteristicUUID.utf8().get_data();
     std::pair<std::string, std::string> subscribedUUIDs = std::make_pair(service, characteristic);
 
-    subscribedServices_.push_back(subscribedUUIDs);
+    peripheral_->notify(service, characteristic, [&](SimpleBLE::ByteArray bytes) {callbackOnDataReceived(bytes);});
+    // subscribedServices_.push_back(subscribedUUIDs);
 }
 
 
