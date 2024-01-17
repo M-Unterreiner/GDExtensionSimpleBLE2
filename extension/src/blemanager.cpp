@@ -21,7 +21,6 @@ BLEAdapter* BLEManager::init(){
   BLEAdapter* newAdapter = memnew(BLEAdapter);
   UtilityFunctions::print(newAdapter);
   return newAdapter;
-
 }
 
 void BLEManager::_bind_methods() {
