@@ -84,6 +84,7 @@ offset_bottom = 34.0
 text = "Unsubscribe service"
 
 [node name="ButtonSubscribe" type="Button" parent="BLEUI/Container"]
+layout_mode = 0
 offset_left = 214.0
 offset_right = 396.0
 offset_bottom = 34.0
@@ -113,5 +114,7 @@ script = ExtResource("7_4v5id")
 [connection signal="item_selected" from="BLEUI/VBoxContainer/ListPeripherals" to="ble_peripheral_manager" method="_on_item_list_item_selected"]
 [connection signal="button_up" from="BLEUI/Container/ButtonRead" to="ble_peripheral_manager" method="_on_button_connect_button_up"]
 [connection signal="button_down" from="BLEUI/Container/ButtonUnsubscribe" to="ble_peripheral_manager" method="_on_button_disconnect_button_down"]
+[connection signal="button_down" from="BLEUI/Container/ButtonUnsubscribe" to="ble_peripheral_manager" method="_on_button_unsubscribe_button_down"]
 [connection signal="button_up" from="BLEUI/Container/ButtonSubscribe" to="ble_peripheral_manager" method="_on_button_connect_button_up"]
+[connection signal="button_up" from="BLEUI/Container/ButtonSubscribe" to="ble_peripheral_manager" method="_on_button_subscribe_button_up"]
 [connection signal="item_selected" from="BLEUI/ListServices" to="ble_peripheral_manager" method="_on_list_services_item_selected"]

@@ -73,12 +73,15 @@ func _on_list_services_item_selected(index):
 	print_debug(selected_service_.get_uuids())
 
 
-func _on_button_connect_button_up():
+func _on_received_data(data : String):
+	print_debug(data)
+
+
+func _on_button_subscribe_button_up():
 	var uuids = selected_service_.get_uuids()
 	selected_peripheral_.read(uuids[0],uuids[1])
 
-func _on_button_disconnect_button_down():
-	pass # Replace with function body.
 
-func _on_received_data(data : String):
-	print_debug(data)
+func _on_button_unsubscribe_button_down():
+	var uuids = selected_service_.get_uuids() 
+	selected_peripheral_.unsubscribe(uuids[0],uuids[1])
