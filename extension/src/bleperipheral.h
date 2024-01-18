@@ -39,14 +39,12 @@ protected:
 
 public:
     void connect();
-    void connectService();
     bool is_peripheral_connected();
     void disconnect();
     String identifier();
     void emit_services();
     void initServices();
     void read(String serviceUUID, String characteristicUUID);
-    // void read(String serviceUUID);
     void subscribe(String serviceUUID , String characteristicUUID);
     void unsubscribe(String serviceUUID , String characteristicUUID);
     void callbackOnDataReceived(SimpleBLE::ByteArray bytes);

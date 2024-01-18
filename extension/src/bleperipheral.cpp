@@ -13,11 +13,6 @@ BLEPeripheral::~BLEPeripheral(){
 
 }
 
-// Connect service
-void BLEPeripheral::connectService() {
-    // Implementation goes here
-}
-
 // Connect peripheral
 void BLEPeripheral::connect() {
     peripheral_->connect();
@@ -58,23 +53,8 @@ std::vector<SimpleBLE::Service> BLEPeripheral::getServices() {
     return peripheral_->services();
 }
 
-// TODO Not implemented for several services.
-// Reads the peripheral
-//String BLEPeripheral::read() {
-//// TODO Is only using the first service
-//    //BLEService service = services.front();
-//    //SimpleBLE::BluetoothUUID serviceUUID = service.getUUIDs().first;
-//    //SimpleBLE::BluetoothUUID characteristicUUID = service.getUUIDs().second;
-//
-//    //SimpleBLE::ByteArray data = peripheral_->read(serviceUUID,characteristicUUID);
-//    return SimpleBLE::ByteArray().c_str();
-//}
-
 void BLEPeripheral::read(String serviceUUID , String characteristicUUID) {
 // TODO Is only using the first service
-    //BLEService service = services.front();
-    //SimpleBLE::BluetoothUUID serviceUUID = service.getUUIDs().first;
-    //SimpleBLE::BluetoothUUID characteristicUUID = service.getUUIDs().second;
     std::string service = serviceUUID.utf8().get_data();
     std::string characteristic = characteristicUUID.utf8().get_data();
     SimpleBLE::ByteArray byteData = peripheral_->read(service,characteristic);
@@ -89,7 +69,6 @@ void BLEPeripheral::subscribe(String serviceUUID , String characteristicUUID){
     std::pair<std::string, std::string> subscribedUUIDs = std::make_pair(service, characteristic);
 
     peripheral_->notify(service, characteristic, [&](SimpleBLE::ByteArray bytes) {callbackOnDataReceived(bytes);});
-    // subscribedServices_.push_back(subscribedUUIDs);
 }
 
 
