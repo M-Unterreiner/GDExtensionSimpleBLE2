@@ -113,7 +113,7 @@ void BLEPeripheral::unsubscribe(String serviceUUID , String characteristicUUID){
     // std::pair<std::string, std::string> service = std::make_pair(service, characteristic);
     // peripheral_.push_back(service);
 
-    // peripheral_->unsubscribe(service,characteristic);
+    peripheral_->unsubscribe(service,characteristic);
     // emit_signal("received_data", "Unsubscribed service");
 }
 
