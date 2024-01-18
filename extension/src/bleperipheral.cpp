@@ -2,6 +2,7 @@
 #include "bleservice.h"
 #include "bleutils.h"
 #include <memory>
+#include <sstream>
 #include <utility>
 #include <vector>
 #include <string>
@@ -80,8 +81,9 @@ void BLEPeripheral::getNotifications(){
 }
 
 void BLEPeripheral::callbackOnDataReceived(SimpleBLE::ByteArray bytes){
-    String data = bytes.c_str();
-    emit_signal("received_data", data);
+    std::stringstream dataWithPrefix;
+    dataWithPrefix << peripheral_->identifier() << ";" << bytes;
+    emit_signal("received_data", dataWithPrefix.str().c_str());
 }
 
 
