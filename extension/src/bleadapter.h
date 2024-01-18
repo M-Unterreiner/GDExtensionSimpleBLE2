@@ -1,6 +1,3 @@
-#ifndef BLEADAPTER_H
-#define BLEADAPTER_H
-
 #pragma once
 
 #include <godot_cpp/classes/ref.hpp>
@@ -44,4 +41,3 @@ public:
   std::vector<SimpleBLE::Peripheral> getScanResults();
   std::vector<SimpleBLE::Peripheral> getPairedPeripherals();
 };
-#endif // BLEADAPTER_CLASS_H
