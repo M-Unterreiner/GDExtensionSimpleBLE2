@@ -10,7 +10,6 @@
 
 
 BLEPeripheral::~BLEPeripheral(){
-
 }
 
 // Connect peripheral
@@ -89,11 +88,8 @@ void BLEPeripheral::callbackOnDataReceived(SimpleBLE::ByteArray bytes){
 void BLEPeripheral::unsubscribe(String serviceUUID , String characteristicUUID){
     std::string service = serviceUUID.utf8().get_data();
     std::string characteristic = characteristicUUID.utf8().get_data();
-    // std::pair<std::string, std::string> service = std::make_pair(service, characteristic);
-    // peripheral_.push_back(service);
 
     peripheral_->unsubscribe(service,characteristic);
-    // emit_signal("received_data", "Unsubscribed service");
 }
 
 void BLEPeripheral::addServiceToServices(SimpleBLE::Service& service, SimpleBLE::Characteristic& characteristic ){
@@ -115,16 +111,11 @@ void BLEPeripheral::initServices(){
   }
 }
 
-
-
-
 BLEPeripheral::BLEPeripheral(){
 }
 
 BLEPeripheral::BLEPeripheral(SimpleBLE::Peripheral& newPeripheral){
     peripheral_ = std::make_shared<SimpleBLE::Peripheral>(newPeripheral);
-   //peripheral_ = std::shared_ptr<SimpleBLE::Peripheral>(newPeripheral);
-   // initServices();
    peripheral_->set_callback_on_connected([&](){callback_on_connected();});
    peripheral_->set_callback_on_disconnected([&](){callback_on_disconnected();});
 }
