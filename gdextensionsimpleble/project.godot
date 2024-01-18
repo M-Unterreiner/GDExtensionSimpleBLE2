@@ -23,4 +23,4 @@ window/size/viewport_height=300
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/gdextensionsimpleble/plugin.cfg")
+enabled=PackedStringArray()

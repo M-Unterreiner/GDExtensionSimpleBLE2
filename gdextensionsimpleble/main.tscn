@@ -1,11 +1,20 @@
 [gd_scene load_steps=8 format=3 uid="uid://dgm4ah3j8jxke"]
 
-[ext_resource type="Script" path="res://src/BLEManager.gd" id="2_8gx58"]
-[ext_resource type="Script" path="res://src/UIDUMMY.gd" id="3_t3fh6"]
-[ext_resource type="Script" path="res://src/BLEAdapter.gd" id="3_x1bhm"]
+[ext_resource type="Script" path="res://src/ble_manager.gd" id="2_8gx58"]
+[ext_resource type="Script" path="res://src/ble_adapter.gd" id="3_x1bhm"]
 [ext_resource type="Script" path="res://src/ble_peripheral_manager.gd" id="4_e1iat"]
-[ext_resource type="Script" path="res://src/ListPeripherals.gd" id="5_8xm7n"]
-[ext_resource type="Script" path="res://src/ListServices.gd" id="7_4v5id"]
+[ext_resource type="Script" path="res://src/list_peripherals.gd" id="5_8xm7n"]
+[ext_resource type="Script" path="res://src/list_services.gd" id="7_4v5id"]
+
+[sub_resource type="GDScript" id="GDScript_18i06"]
+script/source = "extends Control
+
+func _ready():
+	pass
+
+func _on_ble_adapter_update_adapters(updated_adapters):
+	print(updated_adapters)
+"
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_yhttb"]
 
@@ -27,7 +36,7 @@ layout_mode = 3
 anchors_preset = 0
 offset_right = 900.0
 offset_bottom = 216.0
-script = ExtResource("3_t3fh6")
+script = SubResource("GDScript_18i06")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="BLEUI"]
 custom_minimum_size = Vector2(200, 200)
