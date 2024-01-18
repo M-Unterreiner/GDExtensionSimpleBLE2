@@ -8,9 +8,6 @@
 #include <simpleble/SimpleBLE.h>
 
   BLEAdapter::BLEAdapter() {
-    // GDExtensionlogger::log("Adapter instantiated");
-    // setAdapter();
-    // setCallbacks();
 }
 
 BLEAdapter::~BLEAdapter() {}
@@ -104,7 +101,6 @@ void BLEAdapter::callbackOnStartedScan(){
 
 void BLEAdapter::callbackOnScanFound(SimpleBLE::Peripheral peripheral){
   peripherals_.push_back(peripheral);
-  // UtilityFunctions::print("Callback of BLEAdapter on scan found: ", peripheral.identifier(), " found");
 }
 
 
@@ -114,7 +110,6 @@ void BLEAdapter::callbackOnStoppedScan(){
     for (SimpleBLE::Peripheral peripheral : peripherals_){
         BLEPeripheral* newPeripheral = memnew(BLEPeripheral(peripheral));
         emit_signal("found_new_peripheral", newPeripheral->get_instance_id());
-        //UtilityFunctions::print(newPeripheral->get_instance_id());
       }
   }
 }
@@ -144,5 +139,4 @@ void BLEAdapter::_bind_methods() {
   ADD_SIGNAL(MethodInfo("started_scan"));
   ADD_SIGNAL(MethodInfo("stopped_scan"));
   ADD_SIGNAL(MethodInfo("found_new_peripheral", PropertyInfo(Variant::INT, "id")));
-  //ADD_SIGNAL(MethodInfo("found_new_peripheral", PropertyInfo(BLEPeripheral, "new_peripheral")));
 }
