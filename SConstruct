@@ -81,7 +81,7 @@ compile(simpleble_base)
 sources = Glob("extension/src/*.cpp")
 if env["platform"] == "macos":
     library = env.SharedLibrary(
-        "addon/addons/gdextensionsimpleble/bin/libgdextensionsimpleble.{}.{}.framework/libgdextensionsimpleble.{}.{}".format(
+        "gdextensionsimpleble/bin/libgdextensionsimpleble.{}.{}.framework/libgdextensionsimpleble.{}.{}".format(
             env["platform"], env["target"], env["platform"], env["target"]
         ),
         source=sources,
@@ -89,7 +89,7 @@ if env["platform"] == "macos":
 
 else:
     library = env.SharedLibrary(
-        "addon/addons/gdextensionsimpleble/bin/libgdextensionsimpleble{}{}".format(
+        "gdextensionsimpleble/bin/libgdextensionsimpleble{}{}".format(
             env["suffix"], env["SHLIBSUFFIX"]),
         source=sources,
     )
