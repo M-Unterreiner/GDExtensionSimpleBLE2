@@ -1,5 +1,4 @@
-#ifndef GDEXTENSIONLOGGER_H
-#define GDEXTENSIONLOGGER_H
+#pragma once
 
 #include <godot_cpp/classes/ref.hpp>
 
@@ -13,4 +12,3 @@ public:
 
   static void log(String message);
 };
-#endif // GDEXTENSIONLOGGER_H
