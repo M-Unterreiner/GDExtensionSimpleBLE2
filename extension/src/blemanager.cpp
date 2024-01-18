@@ -17,7 +17,6 @@ void BLEManager::log_message(String logMessage){
 }
 
 BLEAdapter* BLEManager::init(){
-  //log_message("BLEManager initialized");
   BLEAdapter* newAdapter = memnew(BLEAdapter);
   UtilityFunctions::print(newAdapter);
   return newAdapter;
@@ -26,6 +25,5 @@ BLEAdapter* BLEManager::init(){
 void BLEManager::_bind_methods() {
   ClassDB::bind_method(D_METHOD("init"), &BLEManager::init);
   ADD_SIGNAL(
-  //    MethodInfo("updateAdapters", PropertyInfo(Variant::STRING, "Updated Adapters")));
       MethodInfo("BLEManager_log", PropertyInfo(Variant::STRING, "message")));
 }
