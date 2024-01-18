@@ -1,6 +1,5 @@
-[gd_scene load_steps=9 format=3 uid="uid://dgm4ah3j8jxke"]
+[gd_scene load_steps=8 format=3 uid="uid://dgm4ah3j8jxke"]
 
-[ext_resource type="Script" path="res://main.gd" id="1_ptcg0"]
 [ext_resource type="Script" path="res://src/BLEManager.gd" id="2_8gx58"]
 [ext_resource type="Script" path="res://src/UIDUMMY.gd" id="3_t3fh6"]
 [ext_resource type="Script" path="res://src/BLEAdapter.gd" id="3_x1bhm"]
@@ -11,7 +10,6 @@
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_yhttb"]
 
 [node name="Main" type="Node"]
-script = ExtResource("1_ptcg0")
 metadata/_edit_horizontal_guides_ = [-73.0, 35.0]
 metadata/_edit_vertical_guides_ = [221.0, 245.0]
 
@@ -113,8 +111,8 @@ script = ExtResource("7_4v5id")
 [connection signal="value_changed" from="BLEUI/VBoxContainer/HBoxContainer/SpinBox" to="BLEAdapter" method="_on_spin_box_value_changed"]
 [connection signal="item_selected" from="BLEUI/VBoxContainer/ListPeripherals" to="ble_peripheral_manager" method="_on_item_list_item_selected"]
 [connection signal="button_up" from="BLEUI/Container/ButtonRead" to="ble_peripheral_manager" method="_on_button_connect_button_up"]
-[connection signal="button_down" from="BLEUI/Container/ButtonUnsubscribe" to="ble_peripheral_manager" method="_on_button_disconnect_button_down"]
 [connection signal="button_down" from="BLEUI/Container/ButtonUnsubscribe" to="ble_peripheral_manager" method="_on_button_unsubscribe_button_down"]
+[connection signal="button_down" from="BLEUI/Container/ButtonUnsubscribe" to="ble_peripheral_manager" method="_on_button_disconnect_button_down"]
 [connection signal="button_up" from="BLEUI/Container/ButtonSubscribe" to="ble_peripheral_manager" method="_on_button_connect_button_up"]
 [connection signal="button_up" from="BLEUI/Container/ButtonSubscribe" to="ble_peripheral_manager" method="_on_button_subscribe_button_up"]
 [connection signal="item_selected" from="BLEUI/ListServices" to="ble_peripheral_manager" method="_on_list_services_item_selected"]
