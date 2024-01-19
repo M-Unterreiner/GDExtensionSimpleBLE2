@@ -1,10 +1,22 @@
-[gd_scene load_steps=8 format=3 uid="uid://dgm4ah3j8jxke"]
+[gd_scene load_steps=9 format=3 uid="uid://dgm4ah3j8jxke"]
 
-[ext_resource type="Script" path="res://src/ble_manager.gd" id="2_8gx58"]
-[ext_resource type="Script" path="res://src/ble_adapter.gd" id="3_x1bhm"]
-[ext_resource type="Script" path="res://src/ble_peripheral_manager.gd" id="4_e1iat"]
-[ext_resource type="Script" path="res://src/list_peripherals.gd" id="5_8xm7n"]
-[ext_resource type="Script" path="res://src/list_services.gd" id="7_4v5id"]
+[ext_resource type="Script" path="res://src/ble_manager.gd" id="2_l57k7"]
+[ext_resource type="Script" path="res://src/ble_adapter.gd" id="3_wiga1"]
+[ext_resource type="Script" path="res://src/ble_peripheral_manager.gd" id="4_cmdiy"]
+[ext_resource type="Script" path="res://src/list_peripherals.gd" id="5_u2o7o"]
+[ext_resource type="Script" path="res://src/list_services.gd" id="6_23kl0"]
+
+[sub_resource type="GDScript" id="GDScript_c4jab"]
+script/source = "extends Node
+
+func _enter_tree() -> void:
+	add_autoload_singleton(\"gdextensionsimple\", \"res://addons/gdextensionsimpleble/GDExtensionSimpleBLE.tscn\")
+
+
+
+func _exit_tree() -> void:
+	remove_autoload_singleton(\"gdextensionsimple\")
+"
 
 [sub_resource type="GDScript" id="GDScript_18i06"]
 script/source = "extends Control
@@ -18,18 +30,19 @@ func _on_ble_adapter_update_adapters(updated_adapters):
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_yhttb"]
 
-[node name="Main" type="Node"]
+[node name="GDextensionSimple" type="Node"]
+script = SubResource("GDScript_c4jab")
 metadata/_edit_horizontal_guides_ = [-73.0, 35.0]
 metadata/_edit_vertical_guides_ = [221.0, 245.0]
 
 [node name="BLEManager" type="BLEManager" parent="."]
-script = ExtResource("2_8gx58")
+script = ExtResource("2_l57k7")
 
 [node name="BLEAdapter" type="BLEAdapter" parent="."]
-script = ExtResource("3_x1bhm")
+script = ExtResource("3_wiga1")
 
-[node name="ble_peripheral_manager" type="Node" parent="."]
-script = ExtResource("4_e1iat")
+[node name="BLEPeripheralManager" type="Node" parent="."]
+script = ExtResource("4_cmdiy")
 
 [node name="BLEUI" type="Control" parent="."]
 layout_mode = 3
@@ -69,7 +82,7 @@ layout_mode = 2
 auto_height = true
 item_count = 1
 item_0/text = ""
-script = ExtResource("5_8xm7n")
+script = ExtResource("5_u2o7o")
 
 [node name="Container" type="Control" parent="BLEUI"]
 anchors_preset = 0
@@ -104,24 +117,24 @@ offset_left = 245.0
 offset_top = 35.0
 offset_right = 887.0
 offset_bottom = 195.0
-script = ExtResource("7_4v5id")
+script = ExtResource("6_23kl0")
 
 [connection signal="BLEManager_log" from="BLEManager" to="BLEManager" method="_on_ble_manager_log"]
-[connection signal="found_new_peripheral" from="BLEAdapter" to="ble_peripheral_manager" method="_on_ble_adapter_found_new_peripheral"]
+[connection signal="found_new_peripheral" from="BLEAdapter" to="BLEPeripheralManager" method="_on_ble_adapter_found_new_peripheral"]
 [connection signal="found_new_peripheral" from="BLEAdapter" to="BLEUI/VBoxContainer/ListPeripherals" method="_on_ble_adapter_found_new_peripheral"]
-[connection signal="started_scan" from="BLEAdapter" to="ble_peripheral_manager" method="_on_ble_adapter_started_scan"]
+[connection signal="started_scan" from="BLEAdapter" to="BLEPeripheralManager" method="_on_ble_adapter_started_scan"]
 [connection signal="started_scan" from="BLEAdapter" to="BLEUI/VBoxContainer/ListPeripherals" method="_on_ble_adapter_started_scan"]
 [connection signal="updateAdapters" from="BLEAdapter" to="BLEUI" method="_on_ble_adapter_update_adapters"]
-[connection signal="cleared_stored_peripherals" from="ble_peripheral_manager" to="BLEUI/VBoxContainer/ListPeripherals" method="_on_ble_peripheral_manager_cleared_stored_peripherals"]
-[connection signal="new_peripheral_stored" from="ble_peripheral_manager" to="BLEUI/VBoxContainer/ListPeripherals" method="_on_ble_peripheral_manager_new_peripheral_stored"]
-[connection signal="updated_peripheral_services" from="ble_peripheral_manager" to="BLEUI/ListServices" method="_on_ble_peripheral_manager_updated_peripheral_services"]
+[connection signal="cleared_stored_peripherals" from="BLEPeripheralManager" to="BLEUI/VBoxContainer/ListPeripherals" method="_on_ble_peripheral_manager_cleared_stored_peripherals"]
+[connection signal="new_peripheral_stored" from="BLEPeripheralManager" to="BLEUI/VBoxContainer/ListPeripherals" method="_on_ble_peripheral_manager_new_peripheral_stored"]
+[connection signal="updated_peripheral_services" from="BLEPeripheralManager" to="BLEUI/ListServices" method="_on_ble_peripheral_manager_updated_peripheral_services"]
 [connection signal="button_down" from="BLEUI/VBoxContainer/HBoxContainer/btn_start_scan" to="BLEAdapter" method="_on_btn_start_scan_button_down"]
 [connection signal="button_down" from="BLEUI/VBoxContainer/HBoxContainer/btn_start_scan" to="BLEUI/ListServices" method="_on_btn_start_scan_button_down"]
 [connection signal="value_changed" from="BLEUI/VBoxContainer/HBoxContainer/SpinBox" to="BLEAdapter" method="_on_spin_box_value_changed"]
-[connection signal="item_selected" from="BLEUI/VBoxContainer/ListPeripherals" to="ble_peripheral_manager" method="_on_item_list_item_selected"]
-[connection signal="button_up" from="BLEUI/Container/ButtonRead" to="ble_peripheral_manager" method="_on_button_connect_button_up"]
-[connection signal="button_down" from="BLEUI/Container/ButtonUnsubscribe" to="ble_peripheral_manager" method="_on_button_unsubscribe_button_down"]
-[connection signal="button_down" from="BLEUI/Container/ButtonUnsubscribe" to="ble_peripheral_manager" method="_on_button_disconnect_button_down"]
-[connection signal="button_up" from="BLEUI/Container/ButtonSubscribe" to="ble_peripheral_manager" method="_on_button_subscribe_button_up"]
-[connection signal="button_up" from="BLEUI/Container/ButtonSubscribe" to="ble_peripheral_manager" method="_on_button_connect_button_up"]
-[connection signal="item_selected" from="BLEUI/ListServices" to="ble_peripheral_manager" method="_on_list_services_item_selected"]
+[connection signal="item_selected" from="BLEUI/VBoxContainer/ListPeripherals" to="BLEPeripheralManager" method="_on_item_list_item_selected"]
+[connection signal="button_up" from="BLEUI/Container/ButtonRead" to="BLEPeripheralManager" method="_on_button_connect_button_up"]
+[connection signal="button_down" from="BLEUI/Container/ButtonUnsubscribe" to="BLEPeripheralManager" method="_on_button_unsubscribe_button_down"]
+[connection signal="button_down" from="BLEUI/Container/ButtonUnsubscribe" to="BLEPeripheralManager" method="_on_button_disconnect_button_down"]
+[connection signal="button_up" from="BLEUI/Container/ButtonSubscribe" to="BLEPeripheralManager" method="_on_button_connect_button_up"]
+[connection signal="button_up" from="BLEUI/Container/ButtonSubscribe" to="BLEPeripheralManager" method="_on_button_subscribe_button_up"]
+[connection signal="item_selected" from="BLEUI/ListServices" to="BLEPeripheralManager" method="_on_list_services_item_selected"]
