@@ -1,7 +1,7 @@
 extends ItemList
 
 @onready
-var peripheral_manager = get_node("../../../ble_peripheral_manager")
+var peripheral_manager = get_node("../../../BLEPeripheralManager")
 
 func init_new_item(peripheral : BLEPeripheral):
 	var icon : Texture2D = load("res://icons/bluetooth.svg")
