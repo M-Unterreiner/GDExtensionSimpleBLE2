@@ -12,9 +12,9 @@ config_version=5
 
 config/name="GDExtensionSimpleBLE"
 config/tags=PackedStringArray("gdextension", "template")
-run/main_scene="res://gdextensionble.tscn"
+run/main_scene="res://addons/gdextensionsimpleble/gdextensionble.tscn"
 config/features=PackedStringArray("4.2")
-config/icon="res://icon.png"
+config/icon="res://addons/gdextensionsimpleble/icons/bluetooth.svg"
 
 [display]
 

@@ -13,6 +13,7 @@ var list_of_services : ItemList = get_node("../BLEUI/ListServices")
 signal new_peripheral_stored
 signal cleared_stored_peripherals
 signal updated_peripheral_services(selected_peripehral_services : Array)
+signal data_received(data : String)
 
 func _on_ble_adapter_found_new_peripheral(id):
 	var new_peripheral : BLEPeripheral = instance_from_id(id)
@@ -71,7 +72,7 @@ func _on_list_services_item_selected(index):
 
 
 func _on_received_data(data : String):
-	print_debug(data)
+	call_deferred("emit_signal","data_received", data)
 
 
 func _on_button_subscribe_button_up():

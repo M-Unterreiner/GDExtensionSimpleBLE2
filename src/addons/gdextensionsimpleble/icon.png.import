@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://h0ir0syinb11"
-path="res://.godot/imported/bluetooth.svg-429126d714de56ab512a875e3fcc657f.ctex"
+uid="uid://cx1mscuegq1lo"
+path="res://.godot/imported/icon.png-756f2f79c1aa39c675c77a2c050eb394.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://icons/bluetooth.svg"
-dest_files=["res://.godot/imported/bluetooth.svg-429126d714de56ab512a875e3fcc657f.ctex"]
+source_file="res://addons/gdextensionsimpleble/icon.png"
+dest_files=["res://.godot/imported/icon.png-756f2f79c1aa39c675c77a2c050eb394.ctex"]
 
 [params]
 
@@ -32,6 +32,3 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
-svg/scale=1.0
-editor/scale_with_editor_scale=false
-editor/convert_colors_with_editor_theme=false

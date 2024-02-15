@@ -4,7 +4,7 @@ extends ItemList
 var peripheral_manager = get_node("../../../BLEPeripheralManager")
 
 func init_new_item(peripheral : BLEPeripheral):
-	var icon : Texture2D = load("res://icons/bluetooth.svg")
+	var icon : Texture2D = load("res://addons/gdextensionsimpleble/icons/bluetooth.svg")
 	var id = add_item(peripheral.identifier(),icon)
 	set_item_custom_bg_color(id,Color.DARK_RED)
 	connect_peripheral_to_signals(peripheral)
