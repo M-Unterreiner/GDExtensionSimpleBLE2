@@ -124,6 +124,6 @@ script = ExtResource("6_23kl0")
 [connection signal="button_up" from="BLEUI/Container/ButtonRead" to="BLEPeripheralManager" method="_on_button_connect_button_up"]
 [connection signal="button_down" from="BLEUI/Container/ButtonUnsubscribe" to="BLEPeripheralManager" method="_on_button_disconnect_button_down"]
 [connection signal="button_down" from="BLEUI/Container/ButtonUnsubscribe" to="BLEPeripheralManager" method="_on_button_unsubscribe_button_down"]
-[connection signal="button_up" from="BLEUI/Container/ButtonSubscribe" to="BLEPeripheralManager" method="_on_button_subscribe_button_up"]
 [connection signal="button_up" from="BLEUI/Container/ButtonSubscribe" to="BLEPeripheralManager" method="_on_button_connect_button_up"]
+[connection signal="button_up" from="BLEUI/Container/ButtonSubscribe" to="BLEPeripheralManager" method="_on_button_subscribe_button_up"]
 [connection signal="item_selected" from="BLEUI/ListServices" to="BLEPeripheralManager" method="_on_list_services_item_selected"]

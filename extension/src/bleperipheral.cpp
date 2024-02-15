@@ -50,7 +50,20 @@ void BLEPeripheral::emit_services(){
 
 // Gets all services from SimpleBLE of the peripheral
 std::vector<SimpleBLE::Service> BLEPeripheral::getServices() {
-    return peripheral_->services();
+  int attempts = 5;
+  int attemptCounter = 0;
+  std::vector<SimpleBLE::Service> services;
+  while (attemptCounter <= attempts){
+    services = peripheral_->services();
+    if (!services.empty()){
+      UtilityFunctions::print("Services received after ", attemptCounter, ".");
+      return services;
+    }
+    UtilityFunctions::print("No services received, ", attemptCounter, ". attempt.");
+    attemptCounter += 1;
+  }
+  UtilityFunctions::print("No services received after ", attempts, ".");
+  return services;
 }
 
 void BLEPeripheral::read(String serviceUUID , String characteristicUUID) {

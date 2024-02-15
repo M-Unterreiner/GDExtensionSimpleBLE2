@@ -16,7 +16,7 @@ signal updated_peripheral_services(selected_peripehral_services : Array)
 
 func _on_ble_adapter_found_new_peripheral(id):
 	var new_peripheral : BLEPeripheral = instance_from_id(id)
-	new_peripheral.init_services()
+	#new_peripheral.init_services()
 	store_new_peripheral(new_peripheral)
 	
 func store_new_peripheral(new_peripheral : BLEPeripheral):
@@ -31,8 +31,10 @@ func _on_ble_adapter_started_scan():
 func connect_peripheral(peripheral : BLEPeripheral):
 	if (!peripheral.is_peripheral_connected()):
 		peripheral.connect_peripheral()
+		peripheral.init_services()
 	else:
 		print_debug(peripheral.identifier(), " is already connected")
+		peripheral.init_services()
 		peripheral.emit_signal("peripheral_is_connected", peripheral.identifier())
 		
 
