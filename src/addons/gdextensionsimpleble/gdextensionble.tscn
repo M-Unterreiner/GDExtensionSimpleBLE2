@@ -15,6 +15,10 @@ func _ready():
 
 func _on_ble_adapter_update_adapters(updated_adapters):
 	print(updated_adapters)
+
+
+func _on_check_button_toggled(toggled_on):
+	pass # Replace with function body.
 "
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_yhttb"]
@@ -56,7 +60,7 @@ layout_mode = 2
 layout_mode = 2
 text = "Start scan"
 
-[node name="SpinBox" type="SpinBox" parent="BLEUI/VBoxContainer/HBoxContainer"]
+[node name="SpinBoxScanDuration" type="SpinBox" parent="BLEUI/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 tooltip_text = "Milliseconds to scan"
@@ -66,6 +70,11 @@ step = 500.0
 value = 2500.0
 update_on_text_changed = true
 suffix = "ms"
+
+[node name="CheckButtonAutomaticReconnect" type="CheckButton" parent="BLEUI/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+tooltip_text = "Automatic reconnect"
+button_pressed = true
 
 [node name="ListPeripherals" type="ItemList" parent="BLEUI/VBoxContainer"]
 clip_contents = false
@@ -122,11 +131,12 @@ script = ExtResource("6_23kl0")
 [connection signal="updated_peripheral_services" from="BLEPeripheralManager" to="BLEUI/ListServices" method="_on_ble_peripheral_manager_updated_peripheral_services"]
 [connection signal="button_down" from="BLEUI/VBoxContainer/HBoxContainer/btn_start_scan" to="BLEAdapter" method="_on_btn_start_scan_button_down"]
 [connection signal="button_down" from="BLEUI/VBoxContainer/HBoxContainer/btn_start_scan" to="BLEUI/ListServices" method="_on_btn_start_scan_button_down"]
-[connection signal="value_changed" from="BLEUI/VBoxContainer/HBoxContainer/SpinBox" to="BLEAdapter" method="_on_spin_box_value_changed"]
+[connection signal="value_changed" from="BLEUI/VBoxContainer/HBoxContainer/SpinBoxScanDuration" to="BLEAdapter" method="_on_spin_box_value_changed"]
+[connection signal="toggled" from="BLEUI/VBoxContainer/HBoxContainer/CheckButtonAutomaticReconnect" to="BLEPeripheralManager" method="_on_check_button_toggled"]
 [connection signal="item_selected" from="BLEUI/VBoxContainer/ListPeripherals" to="BLEPeripheralManager" method="_on_item_list_item_selected"]
 [connection signal="button_up" from="BLEUI/Container/ButtonRead" to="BLEPeripheralManager" method="_on_button_connect_button_up"]
 [connection signal="button_down" from="BLEUI/Container/ButtonUnsubscribe" to="BLEPeripheralManager" method="_on_button_unsubscribe_button_down"]
 [connection signal="button_down" from="BLEUI/Container/ButtonUnsubscribe" to="BLEPeripheralManager" method="_on_button_disconnect_button_down"]
-[connection signal="button_up" from="BLEUI/Container/ButtonSubscribe" to="BLEPeripheralManager" method="_on_button_subscribe_button_up"]
 [connection signal="button_up" from="BLEUI/Container/ButtonSubscribe" to="BLEPeripheralManager" method="_on_button_connect_button_up"]
+[connection signal="button_up" from="BLEUI/Container/ButtonSubscribe" to="BLEPeripheralManager" method="_on_button_subscribe_button_up"]
 [connection signal="item_selected" from="BLEUI/ListServices" to="BLEPeripheralManager" method="_on_list_services_item_selected"]
