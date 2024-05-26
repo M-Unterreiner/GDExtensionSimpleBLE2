@@ -1,0 +1,9 @@
+cff-version: 1.2.0
+message: "GDExtensionSimpleBLE a BLE plugin for Godot."
+authors:
+- family-names: "Unterreiner"
+  given-names: "Martin"
+title: "GDExtensionSimpleBLE"
+version: 1.0.0
+date-released: 2024-05-26
+url: "https://github.com/M-Unterreiner/GDExtensionSimpleBLE"
